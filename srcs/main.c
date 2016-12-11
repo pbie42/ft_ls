@@ -17,28 +17,26 @@
 //iterate through it's contents by reading the directory. Each file or folder
 //we encounter, we then display it's name.
 
-int               main(void)
+int               main(int ac, char **av)
 {
-  char            *curr_dir;
-  DIR             *dp;
   struct dirent   *dptr;
   unsigned int    count;
+  t_main          m;
 
-  curr_dir = NULL;
-  dp = NULL;
-  dptr = NULL;
   count = 0;
+  if (ac > 1)
+    m.option = av[1];
   //Get the value of environment variable PWD
-  curr_dir = getenv("PWD");
-  if (curr_dir == NULL)
+  m.curr_dir = getenv("PWD");
+  if (m.curr_dir == NULL)
   {
     ft_putstr("Error: Could not get the working directory");
     ft_putchar('\n');
     return(-1);
   }
   //Open the current directory
-  dp = opendir((const char*)curr_dir);
-  if (dp == NULL) {
+  m.dp = opendir((const char*)m.curr_dir);
+  if (m.dp == NULL) {
     ft_putstr("Error: Could not open the working directory");
     ft_putchar('\n');
     return(-1);
@@ -46,9 +44,21 @@ int               main(void)
   ft_putchar('\n');
   //Go through and display all the names (files or folders)
   //contained in the directory.
-  while ((dptr = readdir(dp)) != NULL) {
-    ft_putstr(dptr->d_name);
-    ft_putstr("     ");
+  while ((dptr = readdir(m.dp)) != NULL) {
+    //Check if an option has been given to our ft_ls. If it has
+    //an option then display everything. This will eventually be the
+    //response for -a
+    if (m.option) {
+      ft_putstr(dptr->d_name);
+      ft_putstr("     ");
+    } else {
+      //Check if the name of the file/folder begins with '.'
+      //if yes then we don't display it
+      if (dptr->d_name[0] != '.') {
+        ft_putstr(dptr->d_name);
+        ft_putstr("     ");
+      }
+    }
     //ft_putchar('\n');
     count++;
   }
@@ -56,8 +66,7 @@ int               main(void)
 
 }
 
-//As of right now this LS will show all files in the directory even those who
-//begin with a period. The standard LS does not show any files starting with a
-//period unless -a is included in the command line. My LS also does not color
-//code the files, executables, directories, etc. Also as of right now the
-//output is not in alphabetical order.
+//Now my ft_ls will take options but the options do not do anything at the
+//moment other than make the ft_ls display all of the files and folders
+//even if they start with a period. If no option is given then only files and
+//folders that do NOT start with a period will be shown. 

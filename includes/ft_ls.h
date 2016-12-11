@@ -43,4 +43,15 @@
 #include <dirent.h>
 #include "../libft/includes/libft.h"
 
+typedef struct        s_main
+{
+  char                *curr_dir;
+  DIR                 *dp;
+  char                *option;
+  //struct  winsize     w;
+  long                *ptr;
+  int                 num_files;
+  int                 filesize1;
+}                     t_main;
+
 #endif
