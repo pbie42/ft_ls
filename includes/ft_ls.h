@@ -37,21 +37,31 @@
 # define BGLIGHT "\033[47m"
 # define BGGRAY "\033[47m"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <dirent.h>
-#include "../libft/includes/libft.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <dirent.h>
+# include <sys/stat.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/ioctl.h>
+# include "../libft/includes/libft.h"
 
 typedef struct        s_main
 {
   char                *curr_dir;
   DIR                 *dp;
   char                *option;
-  //struct  winsize     w;
+  struct  winsize     w;
   long                *ptr;
   int                 num_files;
   int                 filesize1;
 }                     t_main;
+
+void                  ft_foldercolor(long *ptr, int count);
+void                  ft_execcolor(long *ptr, int count);
+void                  ft_foldercolornorm(long *ptr, int count);
+void                  ft_execcolornorm(long *ptr, int count);
+void                  ft_normcolornorm(long *ptr, int count);
 
 #endif
