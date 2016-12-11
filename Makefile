@@ -13,3 +13,28 @@
 NAME = ft_ls
 
 CFLAGS = -Wall -Werror -Wextra -I includes
+
+SRC = srcs/main.c
+
+OBJ = $(SRC:.c=.o)
+
+all : $(NAME)
+
+$(NAME) : $(OBJ)
+	@make -C libft
+	@gcc $(CFLAGS) -o $(NAME) $(OBJ) -I libft/includes/libft.h libft/libft.a
+	@echo "$(NAME) created"
+
+clean :
+	make -C libft clean
+	rm -rf $(OBJ)
+	@echo "OBJ deleted"
+
+fclean : clean
+	rm -rf $(NAME)
+	rm -rf libft/libft.a
+	@echo "$(NAME) deleted"
+
+re : fclean all
+
+.PHONY: all clean fclean re
