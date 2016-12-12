@@ -38,6 +38,7 @@
 # define BGGRAY "\033[47m"
 
 # include <stdio.h>
+# include <string.h>
 # include <stdlib.h>
 # include <sys/types.h>
 # include <dirent.h>
