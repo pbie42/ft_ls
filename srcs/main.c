@@ -19,16 +19,17 @@
 //alphabetized the folders we display them. The file colors are based on whether
 //it is an executable or a directory. We have also gotten rid of showing files
 //that begin with a period as a typical ls command without any options does
-//not show them. Still need to diplay the output correctly on the screen.
+//not show them. This version now shows the information as if we have done an
+//ls -l. Will need to add options to choose between how I want things shown.
 //NOTE: I have been taking pieces from the previous ft_ls I tried to make
 //6 months ago.
 
 int               main(int ac, char **av)
 {
   struct dirent   *dptr;
-  int    count;
-  int    j;
-  int    k;
+  int             count;
+  int             j;
+  int             k;
   t_main          m;
 
   count = 0;
@@ -165,36 +166,125 @@ int               main(int ac, char **av)
   //to the console
   count = 0;
   while (count < m.num_files) {
-    //Check if the file/folder is executable
-    if (!access((const char*)m.ptr[count], X_OK)) {
-      int fd = -1;
-      struct stat st;
+    int fd = -1;
+    struct stat st;
 
-      fd = open((char*)m.ptr[count], O_RDONLY, 0);
-      if (fd == -1) {
-        ft_putstr("Failed to open file/directory");
-        ft_putchar('\n');
-        free(m.ptr);
-        return(-1);
-      }
-      fstat(fd, &st);
-      if (S_ISDIR(st.st_mode)) {
-        //If folder, print in blue
-        ft_foldercolornorm(m.ptr, count);
-      } else {
-        //If executable print in green
-        ft_execcolornorm(m.ptr, count);
-      }
+    fd = open((char*)m.ptr[count], O_RDONLY, 0);
+    if (fd == -1) {
+      ft_putstr("Failed to open file/directory");
+      ft_putchar('\n');
+      free(m.ptr);
+      return(-1);
+    }
+    //Call fstat to get the stat info about the file
+    if (fstat(fd, &st)) {
+      ft_putstr("Fstat Failed");
       close(fd);
+      free(m.ptr);
+      return(-1);
+    }
+    //Check if the file is a directory
+    if (S_ISDIR(st.st_mode)) {
+      ft_putchar('d');
     } else {
-      //If normal file print by default
-      ft_normcolornorm(m.ptr, count);
+      ft_putchar('-');
+    }
+    //Check the owner permission
+    mode_t permission = st.st_mode & S_IRWXU;
+    if (permission & S_IRUSR) {
+      ft_putchar('r');
+    } else {
+      ft_putchar('-');
+    }
+    if (permission & S_IWUSR) {
+      ft_putchar('w');
+    } else {
+      ft_putchar('-');
+    }
+    if (permission & S_IXUSR) {
+      ft_putchar('x');
+    } else {
+      ft_putchar('-');
+    }
+    //Check the group permission
+    permission = st.st_mode & S_IRWXG;
+    if (permission & S_IRGRP) {
+      ft_putchar('r');
+    } else {
+      ft_putchar('-');
+    }
+    if (permission & S_IWGRP) {
+      ft_putchar('w');
+    } else {
+      ft_putchar('-');
+    }
+    if (permission & S_IXGRP) {
+      ft_putchar('x');
+    } else {
+      ft_putchar('-');
+    }
+    //Check other's permission
+    permission = st.st_mode & S_IRWXO;
+    if (permission & S_IROTH) {
+      ft_putchar('r');
+    } else {
+      ft_putchar('-');
+    }
+    if (permission & S_IWOTH) {
+      ft_putchar('w');
+    } else {
+      ft_putchar('-');
+    }
+    if (permission & S_IXOTH) {
+      ft_putchar('x');
+    } else {
+      ft_putchar('-');
+    }
+
+    //Print the number of hard links
+    ft_putnbr((int)st.st_nlink);
+
+    //Get the user name
+    struct passwd *pt = getpwuid(st.st_uid);
+    ft_putstr(pt->pw_name);
+
+    //Get the group name
+    struct group *p = getgrgid(st.st_gid);
+    ft_putstr(p->gr_name);
+
+    //Get the file size
+    ft_putnbr((long long)st.st_size);
+
+    //Get the date and time. We will have to remove the trailing newline.
+    char date_time[100];
+    ft_memset(date_time, 0, sizeof(date_time));
+    ft_strncpy(date_time, ctime(&st.st_ctime), sizeof(date_time));
+    int c = 0;
+    while (date_time[c] != '\0') {
+      if (date_time[c] == '\n') {
+        date_time[c] = '\0';
+      }
+      c++;
+    }
+    ft_putstr(date_time);
+
+    //Check if the file/folder is executable.
+    if (!access((const char*)m.ptr[count], X_OK)) {
+      if (S_ISDIR(st.st_mode)) {
+        //If folder print in blue
+        ft_foldercolor(m.ptr, count);
+      } else {
+        //If executable print in magenta
+        ft_execcolor(m.ptr, count);
+      }
+    } else {
+      //If normal print as default
+      ft_putendl((char*)m.ptr[count]);
     }
     count++;
   }
+  //Free the allocated memory
   free(m.ptr);
   return(0);
 
 }
-
-//Will need to display the results in a proper format

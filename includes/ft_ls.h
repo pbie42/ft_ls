@@ -46,6 +46,9 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <sys/ioctl.h>
+# include <pwd.h>
+# include <grp.h>
+# include <time.h>
 # include "../libft/includes/libft.h"
 
 typedef struct        s_main
