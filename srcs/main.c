@@ -24,6 +24,51 @@
 //NOTE: I have been taking pieces from the previous ft_ls I tried to make
 //6 months ago.
 
+int               ft_pwd(t_main *m)
+{
+  //Get the value of environment variable PWD
+  m->curr_dir = getenv("PWD");
+  //Check to make sure the current directory isn't null
+  if (ft_pwdcheck(m->curr_dir))
+    return (-1);
+  //Open the current directory
+  m->dp = opendir((const char*)m->curr_dir);
+  if (ft_dircheck(m->dp))
+    return (-1);
+  m->num_files = ft_num_files(m->dp);
+  //We are counting the number of files/folders inside the current working
+  //directory. When it's done we close the directory.
+  closedir(m->dp);
+  return(0);
+}
+
+int               ft_num_file_check(t_main *m)
+{
+  //We then check that we should have at least one file/folder inside the
+  //current working directory
+  if (!m->num_files) {
+    return(-1);
+  } else {
+    //Allocate memory to hold the addresses of the names of contents in current
+    //working directory
+    m->ptr = malloc(m->num_files*8);
+    if (m->ptr == NULL) {
+      ft_putstr("Memory allocation failed");
+      return(-1);
+    } else {
+      //Initialize the memory by zeros
+      memset(m->ptr, 0, m->num_files*8);
+    }
+  }
+
+  //Now we open the directory again
+
+  m->dp = opendir((const char*)m->curr_dir);
+  if (ft_dircheck(m->dp))
+    return (-1);
+  return(0);
+}
+
 int               main(int ac, char **av)
 {
   struct dirent   *dptr;
@@ -33,66 +78,27 @@ int               main(int ac, char **av)
   t_main          m;
 
   count = 0;
-  m.curr_dir = getenv("PWD");
   //This function below will get the width of the terminal
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &m.w);
   if (ac > 1) {
     m.option = av[1];
   }
-  //Get the value of environment variable PWD
-  if (m.curr_dir == NULL)
-  {
-    ft_putstr("Error: Could not get the working directory");
-    ft_putchar('\n');
-    return(-1);
-  }
   //Add variable to hold number of files inside the directory
   m.num_files = 0;
-  //Open the current directory
-  m.dp = opendir((const char*)m.curr_dir);
-  while ((dptr = readdir(m.dp)) != NULL) {
-    //Do not count the files beginning with '.'
-    if (dptr->d_name[0] != '.') {
-      m.num_files++;
-    }
-  }
-  //We are counting the number of files/folders inside the current working
-  //directory. When it's done we close the directory.
-  closedir(m.dp);
+
+  if (ft_pwd(&m) == -1)
+    return(-1);
+
 
   //We restore the values back to NULL since we will use them again later
 
   m.dp = NULL;
   dptr = NULL;
 
-  //We then check that we should have at least one file/folder inside the
-  //current working directory
-
-  if (!m.num_files) {
-    return(0);
-  } else {
-    //Allocate memory to hold the addresses of the names of contents in current
-    //working directory
-    m.ptr = malloc(m.num_files*8);
-    if (m.ptr == NULL) {
-      ft_putstr("Memory allocation failed");
-      return(-1);
-    } else {
-      //Initialize the memory by zeros
-      memset(m.ptr, 0, m.num_files*8);
-    }
-  }
-
-  //Now we open the directory again
-
-  m.dp = opendir((const char*)m.curr_dir);
-
-  if (m.dp == NULL) {
-    ft_putstr("Error: Could not open the working directory");
-    ft_putchar('\n');
-    free(m.ptr);
+  if (ft_num_file_check(&m) == -1)
     return(-1);
-  }
+
+
   //ft_putchar('\n');
   //Start iterating the directory and read all its contents inside an array
   //that we allocated above.

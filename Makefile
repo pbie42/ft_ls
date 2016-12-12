@@ -15,7 +15,8 @@ NAME = ft_ls
 CFLAGS = -Wall -Werror -Wextra -I includes
 
 SRC = srcs/main.c \
-			srcs/print.c
+			srcs/print.c \
+			srcs/checks.c
 
 OBJ = $(SRC:.c=.o)
 

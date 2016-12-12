@@ -67,5 +67,11 @@ void                  ft_execcolor(long *ptr, int count);
 void                  ft_foldercolornorm(long *ptr, int count);
 void                  ft_execcolornorm(long *ptr, int count);
 void                  ft_normcolornorm(long *ptr, int count);
+int                   ft_pwdcheck(char *curr_dir);
+int                   ft_dircheck(DIR *dp);
+int                   ft_num_files(DIR *dp);
+
+
+
 
 #endif
