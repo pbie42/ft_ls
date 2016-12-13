@@ -16,7 +16,9 @@ CFLAGS = -Wall -Werror -Wextra -I includes
 
 SRC = srcs/main.c \
 			srcs/print.c \
-			srcs/checks.c
+			srcs/checks.c \
+			srcs/setup.c \
+			srcs/options.c
 
 OBJ = $(SRC:.c=.o)
 

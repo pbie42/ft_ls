@@ -12,17 +12,8 @@
 
 #include "ft_ls.h"
 
-//In this first version of the LS we get the current working directory
-//through the environment variable PWD. When we have the PWD we open it and
-//iterate through it's contents by reading the directory. We then sort through
-//each file or folder to put them in alphabetical order. Once we have
-//alphabetized the folders we display them. The file colors are based on whether
-//it is an executable or a directory. We have also gotten rid of showing files
-//that begin with a period as a typical ls command without any options does
-//not show them. This version now shows the information as if we have done an
-//ls -l. Will need to add options to choose between how I want things shown.
-//NOTE: I have been taking pieces from the previous ft_ls I tried to make
-//6 months ago.
+//Have begun the process of taking options and finding the ones I can use.
+//TODO will need to start the recursion process before using any flags.
 
 int               ft_pwd(t_main *m)
 {
@@ -46,20 +37,10 @@ int               ft_num_file_check(t_main *m)
 {
   //We then check that we should have at least one file/folder inside the
   //current working directory
-  if (!m->num_files) {
+  if (!m->num_files)
     return(-1);
-  } else {
-    //Allocate memory to hold the addresses of the names of contents in current
-    //working directory
-    m->ptr = malloc(m->num_files*8);
-    if (m->ptr == NULL) {
-      ft_putstr("Memory allocation failed");
-      return(-1);
-    } else {
-      //Initialize the memory by zeros
-      memset(m->ptr, 0, m->num_files*8);
-    }
-  }
+  else
+    m->ptr = ft_ptr_malloc(m->num_files);
 
   //Now we open the directory again
 
@@ -77,39 +58,35 @@ int               main(int ac, char **av)
   int             k;
   t_main          m;
 
-  count = 0;
-  //This function below will get the width of the terminal
-  ioctl(STDOUT_FILENO, TIOCGWINSZ, &m.w);
-  if (ac > 1) {
-    m.option = av[1];
-  }
-  //Add variable to hold number of files inside the directory
   m.num_files = 0;
-
+  count = 0;
+  dptr = NULL;
+  ft_init_flags(&m.f);
+  if (ac > 1 && av[1][0] == '-')
+    ft_find_options(av, &m.f);
+  ioctl(STDOUT_FILENO, TIOCGWINSZ, &m.w);
   if (ft_pwd(&m) == -1)
     return(-1);
-
-
-  //We restore the values back to NULL since we will use them again later
-
-  m.dp = NULL;
-  dptr = NULL;
-
   if (ft_num_file_check(&m) == -1)
     return(-1);
 
+  ft_putnbr(m.f.l);
+  ft_putchar('\n');
+  ft_putnbr(m.f.a);
+  ft_putchar('\n');
+  ft_putnbr(m.f.t);
+  ft_putchar('\n');
+  ft_putnbr(m.f.sm_r);
+  ft_putchar('\n');
+  ft_putnbr(m.f.lg_r);
+  ft_putchar('\n');
 
   //ft_putchar('\n');
   //Start iterating the directory and read all its contents inside an array
   //that we allocated above.
-  j = 0;
-  while ((dptr = readdir(m.dp)) != NULL) {
-    if (dptr->d_name[0] != '.') {
-      m.ptr[j] = (long)dptr->d_name;
-      j++;
-    }
-  }
+  ft_ptrfill(m.ptr, m.dp);
   //Start sorting the names alphabetically using bubble sorting here
+  j = 0;
   while (count < m.num_files - 1) {
     k = count + 1;
     while (k < (m.num_files)) {

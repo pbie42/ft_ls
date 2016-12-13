@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-int             ft_num_files(DIR *dp)
+int               ft_num_files(DIR *dp)
 {
   struct dirent   *dptr;
   int             num_files;
@@ -28,18 +28,36 @@ int             ft_num_files(DIR *dp)
   return (num_files);
 }
 
-long          ft_ptr_malloc(int num_files)
+long              *ft_ptr_malloc(int num_files)
 {
-  long        *ptr;
+  long            *ptr;
 
   //Allocate memory to hold the addresses of the names of contents in current
   //working directory
   ptr = malloc(num_files*8);
-  if (ptr == NULL) {
+  if (ptr == NULL)
+  {
     ft_putstr("Memory allocation failed");
     ft_exit("Oh No! The allocation failed!");
-  } else {
+  }
+  else
+  {
     //Initialize the memory by zeros
-    memset(m->ptr, 0, m->num_files*8);
+    memset(ptr, 0, num_files*8);
+  }
+  return (ptr);
+}
+
+void              ft_ptrfill(long *ptr, DIR *dp)
+{
+  int             j;
+  struct dirent   *dptr;
+
+  j = 0;
+  while ((dptr = readdir(dp)) != NULL) {
+    if (dptr->d_name[0] != '.') {
+      ptr[j] = (long)dptr->d_name;
+      j++;
+    }
   }
 }

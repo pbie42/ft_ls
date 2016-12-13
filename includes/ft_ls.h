@@ -13,6 +13,8 @@
 #ifndef FT_LS_H
 # define FT_LS_H
 
+# define TRUE 1
+# define FALSE 0
 # define STOP "\033[0;0m"
 # define EOC "\033[39m"
 # define EOBG "\033[49m"
@@ -51,6 +53,17 @@
 # include <time.h>
 # include "../libft/includes/libft.h"
 
+typedef int           t_bool;
+
+typedef struct         s_flags
+{
+  t_bool              l;
+  t_bool              a;
+  t_bool              t;
+  t_bool              sm_r;
+  t_bool              lg_r;
+}                     t_flags;
+
 typedef struct        s_main
 {
   char                *curr_dir;
@@ -60,6 +73,7 @@ typedef struct        s_main
   long                *ptr;
   int                 num_files;
   int                 filesize1;
+  t_flags             f;
 }                     t_main;
 
 void                  ft_foldercolor(long *ptr, int count);
@@ -70,6 +84,14 @@ void                  ft_normcolornorm(long *ptr, int count);
 int                   ft_pwdcheck(char *curr_dir);
 int                   ft_dircheck(DIR *dp);
 int                   ft_num_files(DIR *dp);
+long                  *ft_ptr_malloc(int num_files);
+void                  ft_ptrfill(long *ptr, DIR *dp);
+void                  ft_init_flags(t_flags *f);
+void                  ft_which_options(char *ops, t_flags *f);
+void                  ft_find_options(char **options, t_flags *f);
+
+
+
 
 
 

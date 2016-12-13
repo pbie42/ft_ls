@@ -26,11 +26,11 @@ int             ft_pwdcheck(char *curr_dir)
 
 int             ft_dircheck(DIR *dp)
 {
-  if (m->dp == NULL)
+  if (dp == NULL)
   {
     ft_putstr("Error: Could not open the working directory");
     ft_putchar('\n');
-    free(m->ptr);
+    free(dp);
     return (1);
   }
   else
