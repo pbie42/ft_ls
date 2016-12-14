@@ -81,14 +81,17 @@ void                  ft_execcolor(long *ptr, int count);
 void                  ft_foldercolornorm(long *ptr, int count);
 void                  ft_execcolornorm(long *ptr, int count);
 void                  ft_normcolornorm(long *ptr, int count);
-int                   ft_pwdcheck(char *curr_dir);
-int                   ft_dircheck(DIR *dp);
-int                   ft_num_files(DIR *dp);
-long                  *ft_ptr_malloc(int num_files);
 void                  ft_ptrfill(long *ptr, DIR *dp);
 void                  ft_init_flags(t_flags *f);
 void                  ft_which_options(char *ops, t_flags *f);
 void                  ft_find_options(char **options, t_flags *f);
+void                  ft_list_push_back(t_files **begin_list, struct dirent *ent, char *path);
+int                   ft_pwdcheck(char *curr_dir);
+int                   ft_dircheck(DIR *dp);
+int                   ft_num_files(DIR *dp);
+long                  *ft_ptr_malloc(int num_files);
+t_files               *ft_lstnew(struct dirent *ent, char *path);
+
 
 
 
