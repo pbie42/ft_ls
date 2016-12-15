@@ -37,6 +37,10 @@ int               ft_num_file_check(t_main *m)
 {
   //We then check that we should have at least one file/folder inside the
   //current working directory
+  if (!m->num_files)
+    return(-1);
+  else
+    m->ptr = ft_ptr_malloc(m->num_files);
 
   //Now we open the directory again
 
@@ -51,7 +55,7 @@ int               main(int ac, char **av)
   struct dirent   *dptr;
   int             count;
   int             j;
-  //int             k;
+  int             k;
   t_main          m;
   char            *nw_path;
 
@@ -64,12 +68,6 @@ int               main(int ac, char **av)
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &m.w);
   if (ft_pwd(&m) == -1)
     return(-1);
-
-  if (!m.num_files)
-    return(-1);
-  else
-    m.ptr = ft_ptr_malloc(m.num_files);
-
   if (ft_num_file_check(&m) == -1)
     return(-1);
 
@@ -92,7 +90,7 @@ int               main(int ac, char **av)
   ft_ptrfill(&m);
   //Start sorting the names alphabetically using bubble sorting here
   j = 0;
-  /*
+
   while (count < m.num_files - 1) {
     ft_putendl("while loop alpha part 1");
     k = count + 1;
@@ -118,7 +116,7 @@ int               main(int ac, char **av)
         //next value
         if (*(c + i) > *(d + i)) {
           //If yes, then swap the values
-          long temp = 0;
+          char *temp;
           temp = m.ptr[count];
           m.ptr[count] = m.ptr[j];
           m.ptr[j] = temp;
@@ -147,7 +145,7 @@ int               main(int ac, char **av)
         //After difference is found, check if a swap is required.
         if ((*c + off_1 + i) > (*d + off_2 + i)) {
           //If yes we do the swap
-          long temp = 0;
+          char *temp;
           temp = m.ptr[count];
           m.ptr[count] = m.ptr[j];
           m.ptr[j] = temp;
@@ -157,14 +155,8 @@ int               main(int ac, char **av)
     }
     count++;
   }
-  */
+
   ft_putendl("Done with bubble sort");
-  count = 0;
-  ft_putendl(m.ptr[count]);
-  while (count < m.num_files) {
-    ft_putendl(m.ptr[count]);
-    count++;
-  }
 
   //Now that the names are sorted alphabetically we need to display them
   //to the console
