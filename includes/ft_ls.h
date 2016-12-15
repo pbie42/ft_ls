@@ -70,27 +70,29 @@ typedef struct        s_main
   DIR                 *dp;
   char                *option;
   struct  winsize     w;
-  long                *ptr;
+  char                **ptr;
   int                 num_files;
   int                 filesize1;
   t_flags             f;
 }                     t_main;
 
-void                  ft_foldercolor(long *ptr, int count);
-void                  ft_execcolor(long *ptr, int count);
-void                  ft_foldercolornorm(long *ptr, int count);
-void                  ft_execcolornorm(long *ptr, int count);
-void                  ft_normcolornorm(long *ptr, int count);
-void                  ft_ptrfill(long *ptr, DIR *dp);
+void                  ft_foldercolor(char **ptr, int count);
+void                  ft_execcolor(char **ptr, int count);
+void                  ft_foldercolornorm(char **ptr, int count);
+void                  ft_execcolornorm(char **ptr, int count);
+void                  ft_normcolornorm(char **ptr, int count);
+void                  ft_ptrfill(t_main *m);
 void                  ft_init_flags(t_flags *f);
 void                  ft_which_options(char *ops, t_flags *f);
 void                  ft_find_options(char **options, t_flags *f);
-void                  ft_list_push_back(t_files **begin_list, struct dirent *ent, char *path);
+//void                  ft_list_push_back(t_files **begin_list, struct dirent *ent, char *path);
 int                   ft_pwdcheck(char *curr_dir);
 int                   ft_dircheck(DIR *dp);
-int                   ft_num_files(DIR *dp);
-long                  *ft_ptr_malloc(int num_files);
-t_files               *ft_lstnew(struct dirent *ent, char *path);
+int                   ft_num_files(DIR *dp, t_flags f);
+char                  **ft_ptr_malloc(int num_files);
+//t_files               *ft_lstnew(struct dirent *ent, char *path);
+char                  *make_path_fl(char *dir, char *file);
+
 
 
 

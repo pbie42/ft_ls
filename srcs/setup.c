@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-int               ft_num_files(DIR *dp)
+int               ft_num_files(DIR *dp, t_flags f)
 {
   struct dirent   *dptr;
   int             num_files;
@@ -22,42 +22,48 @@ int               ft_num_files(DIR *dp)
   {
     //Do not count the files beginning with '.'
     //TODO: will need to change this later on to include all files
+    if (f.a == TRUE && dptr->d_name[0] == '.')
+      num_files++;
     if (dptr->d_name[0] != '.')
       num_files++;
   }
   return (num_files);
 }
 
-long              *ft_ptr_malloc(int num_files)
+char              **ft_ptr_malloc(int num_files)
 {
-  long            *ptr;
+  char            **ptr;
 
   //Allocate memory to hold the addresses of the names of contents in current
   //working directory
-  ptr = malloc(num_files*8);
+  ptr = (char**)malloc(sizeof(char *) * num_files + 1);
   if (ptr == NULL)
   {
     ft_putstr("Memory allocation failed");
     ft_exit("Oh No! The allocation failed!");
   }
-  else
-  {
-    //Initialize the memory by zeros
-    memset(ptr, 0, num_files*8);
-  }
   return (ptr);
 }
 
-void              ft_ptrfill(long *ptr, DIR *dp)
+void              ft_ptrfill(t_main *m)
 {
   int             j;
+  size_t          l;
   struct dirent   *dptr;
 
   j = 0;
-  while ((dptr = readdir(dp)) != NULL) {
-    if (dptr->d_name[0] != '.') {
-      ptr[j] = (long)dptr->d_name;
+  while ((dptr = readdir(m->dp)) != NULL) {
+    l = ft_strlen(dptr->d_name) + 1;
+    if (m->f.a == TRUE && dptr->d_name[0] == '.')
+    {
+      m->ptr[j] = ft_strndup(dptr->d_name, l);
+      j++;
+    }
+    if (dptr->d_name[0] != '.')
+    {
+      m->ptr[j] = ft_strndup(dptr->d_name, l);
       j++;
     }
   }
+  m->ptr[j] = NULL;
 }

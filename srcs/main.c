@@ -26,7 +26,7 @@ int               ft_pwd(t_main *m)
   m->dp = opendir((const char*)m->curr_dir);
   if (ft_dircheck(m->dp))
     return (-1);
-  m->num_files = ft_num_files(m->dp);
+  m->num_files = ft_num_files(m->dp, m->f);
   //We are counting the number of files/folders inside the current working
   //directory. When it's done we close the directory.
   closedir(m->dp);
@@ -37,10 +37,6 @@ int               ft_num_file_check(t_main *m)
 {
   //We then check that we should have at least one file/folder inside the
   //current working directory
-  if (!m->num_files)
-    return(-1);
-  else
-    m->ptr = ft_ptr_malloc(m->num_files);
 
   //Now we open the directory again
 
@@ -55,8 +51,9 @@ int               main(int ac, char **av)
   struct dirent   *dptr;
   int             count;
   int             j;
-  int             k;
+  //int             k;
   t_main          m;
+  char            *nw_path;
 
   m.num_files = 0;
   count = 0;
@@ -67,6 +64,12 @@ int               main(int ac, char **av)
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &m.w);
   if (ft_pwd(&m) == -1)
     return(-1);
+
+  if (!m.num_files)
+    return(-1);
+  else
+    m.ptr = ft_ptr_malloc(m.num_files);
+
   if (ft_num_file_check(&m) == -1)
     return(-1);
 
@@ -80,20 +83,29 @@ int               main(int ac, char **av)
   ft_putchar('\n');
   ft_putnbr(m.f.lg_r);
   ft_putchar('\n');
+  ft_putnbr(m.num_files);
+  ft_putchar('\n');
 
   //ft_putchar('\n');
   //Start iterating the directory and read all its contents inside an array
   //that we allocated above.
-  ft_ptrfill(m.ptr, m.dp);
+  ft_ptrfill(&m);
   //Start sorting the names alphabetically using bubble sorting here
   j = 0;
+  /*
   while (count < m.num_files - 1) {
+    ft_putendl("while loop alpha part 1");
     k = count + 1;
     while (k < (m.num_files)) {
-      char *c = (char*)m.ptr[count];
-      char *d = (char*)m.ptr[k];
+      ft_putendl("while loop alpha part 2");
+      char *c = m.ptr[count];
+      char *d = m.ptr[k];
       //Check that the two characters should be from the same set
+      ft_putendl(m.ptr[count]);
+      ft_putendl(m.ptr[k]);
+      ft_putendl("....");
       if ( ((*c >= 'a') && (*d >= 'a')) || ((*c <= 'Z') && (*d <= 'Z')) ) {
+        ft_putendl("Same ASCII if");
         int i = 0;
         //If initial characters are the same, continue comparing the characters
         //until a difference is found.
@@ -112,6 +124,7 @@ int               main(int ac, char **av)
           m.ptr[j] = temp;
         }
       } else {
+        ft_putendl("NOT same ASCII else");
         //If the two beginning characters are not from the same ASCII set then
         //make them the same and then compare them
         int off_1 = 0;
@@ -144,6 +157,14 @@ int               main(int ac, char **av)
     }
     count++;
   }
+  */
+  ft_putendl("Done with bubble sort");
+  count = 0;
+  ft_putendl(m.ptr[count]);
+  while (count < m.num_files) {
+    ft_putendl(m.ptr[count]);
+    count++;
+  }
 
   //Now that the names are sorted alphabetically we need to display them
   //to the console
@@ -152,20 +173,24 @@ int               main(int ac, char **av)
     int fd = -1;
     struct stat st;
 
-    fd = open((char*)m.ptr[count], O_RDONLY, 0);
-    if (fd == -1) {
+    //fd = open(m.ptr[count], O_RDONLY, 0);
+    //ft_putendl(m.ptr[count]);
+    /*if (fd == -1) {
+      ft_putstr(m.ptr[count]);
       ft_putstr("Failed to open file/directory");
       ft_putchar('\n');
       free(m.ptr);
       return(-1);
-    }
+    }*/
     //Call fstat to get the stat info about the file
-    if (fstat(fd, &st)) {
+    nw_path = make_path_fl(".", m.ptr[count]);
+    if (stat(nw_path, &st)) {
       ft_putstr("Fstat Failed");
       close(fd);
       free(m.ptr);
       return(-1);
     }
+    free(nw_path);
     //Check if the file is a directory
     if (S_ISDIR(st.st_mode)) {
       ft_putchar('d');
@@ -262,7 +287,7 @@ int               main(int ac, char **av)
       }
     } else {
       //If normal print as default
-      ft_putendl((char*)m.ptr[count]);
+      ft_putendl(m.ptr[count]);
     }
     count++;
   }
