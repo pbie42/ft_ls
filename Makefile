@@ -15,11 +15,12 @@ NAME = ft_ls
 CFLAGS = -g -Wall -Werror -Wextra -I includes
 
 SRC = srcs/main.c \
-			srcs/print.c \
+			srcs/printcolor.c \
 			srcs/checks.c \
 			srcs/setup.c \
 			srcs/options.c \
-			srcs/path.c
+			srcs/path.c \
+			srcs/alphaspace.c
 
 OBJ = $(SRC:.c=.o)
 

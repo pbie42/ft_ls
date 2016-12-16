@@ -54,8 +54,6 @@ int               main(int ac, char **av)
 {
   struct dirent   *dptr;
   int             count;
-  int             j;
-  int             k;
   t_main          m;
   char            *nw_path;
 
@@ -70,93 +68,8 @@ int               main(int ac, char **av)
     return(-1);
   if (ft_num_file_check(&m) == -1)
     return(-1);
-
-  ft_putnbr(m.f.l);
-  ft_putchar('\n');
-  ft_putnbr(m.f.a);
-  ft_putchar('\n');
-  ft_putnbr(m.f.t);
-  ft_putchar('\n');
-  ft_putnbr(m.f.sm_r);
-  ft_putchar('\n');
-  ft_putnbr(m.f.lg_r);
-  ft_putchar('\n');
-  ft_putnbr(m.num_files);
-  ft_putchar('\n');
-
-  //ft_putchar('\n');
-  //Start iterating the directory and read all its contents inside an array
-  //that we allocated above.
   ft_ptrfill(&m);
-  //Start sorting the names alphabetically using bubble sorting here
-  j = 0;
-
-  while (count < m.num_files - 1) {
-    ft_putendl("while loop alpha part 1");
-    k = count + 1;
-    while (k < (m.num_files)) {
-      ft_putendl("while loop alpha part 2");
-      char *c = m.ptr[count];
-      char *d = m.ptr[k];
-      //Check that the two characters should be from the same set
-      ft_putendl(m.ptr[count]);
-      ft_putendl(m.ptr[k]);
-      ft_putendl("....");
-      if ( ((*c >= 'a') && (*d >= 'a')) || ((*c <= 'Z') && (*d <= 'Z')) ) {
-        ft_putendl("Same ASCII if");
-        int i = 0;
-        //If initial characters are the same, continue comparing the characters
-        //until a difference is found.
-        if (*c == *d) {
-          while (*(c + i) == *(d + i)) {
-            i++;
-          }
-        }
-        //Check if the earlier stored value is alphabetically higher than the
-        //next value
-        if (*(c + i) > *(d + i)) {
-          //If yes, then swap the values
-          char *temp;
-          temp = m.ptr[count];
-          m.ptr[count] = m.ptr[j];
-          m.ptr[j] = temp;
-        }
-      } else {
-        ft_putendl("NOT same ASCII else");
-        //If the two beginning characters are not from the same ASCII set then
-        //make them the same and then compare them
-        int off_1 = 0;
-        int off_2 = 0;
-        if (*c <= 'Z') {
-          off_1 = 32;
-        }
-        if (*d <= 'Z') {
-          off_2 = 32;
-        }
-        int i = 0;
-        //After the character set are made same, check if the begninning
-        //characters are same. If yes, then continue searching until we find
-        //some difference.
-        if (*c + off_1 == *d + off_2) {
-          while (*(c + off_1 + i) == *(d + off_2 + i)) {
-            i++;
-          }
-        }
-        //After difference is found, check if a swap is required.
-        if ((*c + off_1 + i) > (*d + off_2 + i)) {
-          //If yes we do the swap
-          char *temp;
-          temp = m.ptr[count];
-          m.ptr[count] = m.ptr[j];
-          m.ptr[j] = temp;
-        }
-      }
-      k++;
-    }
-    count++;
-  }
-
-  ft_putendl("Done with bubble sort");
+  ft_alphastrsort(&m);
 
   //Now that the names are sorted alphabetically we need to display them
   //to the console

@@ -85,6 +85,7 @@ void                  ft_ptrfill(t_main *m);
 void                  ft_init_flags(t_flags *f);
 void                  ft_which_options(char *ops, t_flags *f);
 void                  ft_find_options(char **options, t_flags *f);
+void                  ft_alphastrsort(t_main *m);
 //void                  ft_list_push_back(t_files **begin_list, struct dirent *ent, char *path);
 int                   ft_pwdcheck(char *curr_dir);
 int                   ft_dircheck(DIR *dp);
