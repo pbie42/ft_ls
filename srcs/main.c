@@ -75,23 +75,11 @@ int               main(int ac, char **av)
   //to the console
   count = 0;
   while (count < m.num_files) {
-    int fd = -1;
     struct stat st;
-
-    //fd = open(m.ptr[count], O_RDONLY, 0);
-    //ft_putendl(m.ptr[count]);
-    /*if (fd == -1) {
-      ft_putstr(m.ptr[count]);
-      ft_putstr("Failed to open file/directory");
-      ft_putchar('\n');
-      free(m.ptr);
-      return(-1);
-    }*/
-    //Call fstat to get the stat info about the file
+    //Call stat to get the stat info about the file
     nw_path = make_path_fl(".", m.ptr[count]);
     if (stat(nw_path, &st)) {
       ft_putstr("Fstat Failed");
-      close(fd);
       free(m.ptr);
       return(-1);
     }
@@ -154,19 +142,29 @@ int               main(int ac, char **av)
       ft_putchar('-');
     }
 
+    ft_putchar(' ');
+
     //Print the number of hard links
     ft_putnbr((int)st.st_nlink);
+
+    ft_putchar(' ');
 
     //Get the user name
     struct passwd *pt = getpwuid(st.st_uid);
     ft_putstr(pt->pw_name);
 
+    ft_putchar(' ');
+
     //Get the group name
     struct group *p = getgrgid(st.st_gid);
     ft_putstr(p->gr_name);
 
+    ft_putchar(' ');
+
     //Get the file size
     ft_putnbr((long long)st.st_size);
+
+    ft_putchar(' ');
 
     //Get the date and time. We will have to remove the trailing newline.
     char date_time[100];
@@ -180,6 +178,8 @@ int               main(int ac, char **av)
       c++;
     }
     ft_putstr(date_time);
+
+    ft_putchar(' ');
 
     //Check if the file/folder is executable.
     if (!access((const char*)m.ptr[count], X_OK)) {
