@@ -55,7 +55,23 @@
 
 typedef int           t_bool;
 
-typedef struct         s_flags
+typedef struct        s_files
+{
+  struct s_files      *next;
+  struct s_files      *prev;
+  struct s_files      *sub_dir;
+  time_t              mtime;
+  mode_t              st_mode;
+  nlink_t             st_nlink;
+  uid_t               st_uid;
+  gid_t               st_gid;
+  off_t               st_size;
+  ino_t               st_ino;
+  blkcnt_t            st_blocks;
+  struct dirent       *dptr;
+}                     t_files;
+
+typedef struct        s_flags
 {
   t_bool              l;
   t_bool              a;

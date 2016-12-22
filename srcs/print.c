@@ -38,7 +38,7 @@ void              ft_printtime(struct stat st)
   char            date_time[100];
   //Get the date and time. We will have to remove the trailing newline.
   ft_memset(date_time, 0, sizeof(date_time));
-  ft_strncpy(date_time, ctime(&st.st_ctime), sizeof(date_time));
+  ft_strncpy(date_time, ctime(&st.st_mtime), sizeof(date_time));
   c = 0;
   while (date_time[c] != '\0') {
     if (date_time[c] == '\n') {

@@ -42,6 +42,7 @@ t_files   *ft_lstnew(struct dirent *ent, char *path)
     return (NULL);
   alist->next = NULL;
   alist->prev = NULL;
+  alist->sub_dir = NULL;
   alist->mtime = fstat.st_mtime;
   alist->st_mode = fstat.st_mode;
   alist->st_nlink = fstat.st_nlink;
