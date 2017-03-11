@@ -12,27 +12,27 @@
 
 #include "ft_ls.h"
 
-int             ft_pwdcheck(char *curr_dir)
+int								ft_pwdcheck(char *curr_dir)
 {
-  if (curr_dir == NULL)
-  {
-    ft_putstr("Error: Could not get the working directory");
-    ft_putchar('\n');
-    return (1);
-  }
-  else
-    return (0);
+	if (curr_dir == NULL)
+	{
+		ft_putstr("Error: Could not get the working directory");
+		ft_putchar('\n');
+		return (1);
+	}
+	else
+		return (0);
 }
 
-int             ft_dircheck(DIR *dp)
+int								ft_dircheck(DIR *dp)
 {
-  if (dp == NULL)
-  {
-    ft_putstr("Error: Could not open the working directory");
-    ft_putchar('\n');
-    free(dp);
-    return (1);
-  }
-  else
-    return (0);
+	if (dp == NULL)
+	{
+		ft_putstr("Error: Could not open the working directory");
+		ft_putchar('\n');
+		free(dp);
+		return (1);
+	}
+	else
+		return (0);
 }
