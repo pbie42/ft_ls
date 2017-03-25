@@ -21,27 +21,27 @@ void							ft_init_flags(t_flags *f)
 	f->lg_r = FALSE;
 }
 
-void							ft_which_flags(char *ops, t_flags *f)
+void							ft_which_flags(char *flags, t_flags *f)
 {
 	int							x;
 
 	x = 1;
-	while (ops[x] != '\0')
+	while (flags[x] != '\0')
 	{
-		if (ops[x] == 'l')
+		if (flags[x] == 'l')
 			f->l = TRUE;
-		else if (ops[x] == 'a')
+		else if (flags[x] == 'a')
 			f->a = TRUE;
-		else if (ops[x] == 't')
+		else if (flags[x] == 't')
 			f->t = TRUE;
-		else if (ops[x] == 'r')
+		else if (flags[x] == 'r')
 			f->sm_r = TRUE;
-		else if (ops[x] == 'R')
+		else if (flags[x] == 'R')
 			f->lg_r = TRUE;
 		else
 		{
 			ft_putstr("ls: illegal option -- ");
-			ft_putchar(ops[x]);
+			ft_putchar(flags[x]);
 			ft_putchar('\n');
 			ft_putendl("usage: ls [-Ralrt] [file ...]");
 			ft_exit("fail");
@@ -52,26 +52,26 @@ void							ft_which_flags(char *ops, t_flags *f)
 
 void							ft_find_flags(char **av, t_flags *f)
 {
-	t_bool					opt;
+	t_bool					flag;
 	int							x;
 
 	x = 1;
-	opt = TRUE;
+	flag = TRUE;
 	while (av[x] != NULL)
 	{
-		ft_putendl("ft_find_options");
-		if (av[x][0] == '-' && opt == TRUE)
+		ft_putendl("ft_find_flags");
+		if (av[x][0] == '-' && flag == TRUE)
 			ft_which_flags(av[x], f);
-		else if (av[x][0] != '-' && opt == TRUE)
-			opt = FALSE;
-		else if (av[x][0] == '-' && opt == FALSE)
+		else if (av[x][0] != '-' && flag == TRUE)
+			flag = FALSE;
+		else if (av[x][0] == '-' && flag == FALSE)
 		{
 			ft_putstr("ls: ");
 			ft_putstr(av[x]);
 			ft_putendl(": No such file or directory");
 		}
 		else
-			opt = FALSE;
+			flag = FALSE;
 		x++;
 	}
 }
