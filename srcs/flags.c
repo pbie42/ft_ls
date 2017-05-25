@@ -25,6 +25,7 @@ void							ft_which_flags(char *flags, t_flags *f)
 {
 	int						x;
 
+	ft_init_flags(f);
 	x = 1;
 	while (flags[x] != '\0')
 	{

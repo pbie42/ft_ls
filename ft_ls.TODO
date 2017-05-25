@@ -1,7 +1,8 @@
 ft_ls:
 	☐ If no flag given check to see if it's a dirertory and if not send error ls: l: No such file or directory
 	☐ If no flags are given and no second argument need files to output horizontally
-	✔ If -R is given with -r make sure files stay in alpha order within folders but folder order is reversed @done (5/25/2017, 6:49:06 PM)
+	☐ If -R is given with -r make sure files stay in alpha order within folders but folder order is reversed
+		☐ For the moment files do not reverse if -R is with -r. Need to expand on this later (alphaspace.c)
 	Flags:
 		☐ -R for recursion @high
 		☐ Make an if for the -R flag in the main

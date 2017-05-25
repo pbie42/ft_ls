@@ -12,24 +12,24 @@
 
 #include "ft_ls.h"
 
-t_files						*ft_list(char *name)
+t_files						*ft_list(char *curr_dir)
 {
-	DIR							*dir;
+	DIR						*ds;
+	struct dirent			*dptr;
 	t_files					*fls;
-	struct dirent		*ent;
 	t_files					*tmp;
 
 	fls = NULL;
 
-	if(!(dir = opendir(name)))
+	if(!(ds = opendir(curr_dir)))
 		return (NULL);
-	if(!(ent = readdir(dir)))
+	if(!(dptr = readdir(ds)))
 		return (NULL);
-	if(!(fls = ft_lstnew(ent, name)))
+	if(!(fls = ft_lstnew(dptr, curr_dir)))
 		return (NULL);
-	while((ent = readdir(dir)))
+	while((dptr = readdir(ds)))
 	{
-		ft_list_push_back(&fls, ent, name);
+		ft_list_push_back(&fls, dptr, curr_dir);
 	}
 	//We do this because we are going to want to return the start of the list
 	//and if we iterate over it we will return the end of the list;

@@ -57,7 +57,6 @@ int									main(int ac, char **av)
 
 	m.num_files = 0;
 	dptr = NULL;
-	ft_init_flags(&m.f);
 	if (ac > 1 && av[1][0] == '-')
 		ft_find_flags(av, &m.f);
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &m.w); // This should be returning into something
@@ -66,11 +65,14 @@ int									main(int ac, char **av)
 	if (ft_num_file_check(&m) == -1)
 		return (-1);
 	ft_ptrfill(&m);
+
+	// if (m.f.lg_r == TRUE)
+	// {
+	// 	ft_
+	// }
+
 	ft_alphastrsort(&m);
 	ft_print(m);
-	//Now that the names are sorted alphabetically we need to display them
-	//to the console
-
 	//Free the allocated memory
 	free(m.ptr);
 	return (0);

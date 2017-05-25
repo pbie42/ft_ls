@@ -35,7 +35,7 @@ void							ft_printinfo(struct stat st)
 
 void							ft_printtime(struct stat st)
 {
-	int							c;
+	int						c;
 	char						date_time[100];
 
 	//Get the date and time. We will have to remove the trailing newline.
@@ -57,8 +57,8 @@ void							ft_printtime(struct stat st)
 void							ft_print(t_main m)
 {
 	char						*nw_path;
-	int							count;
-	struct stat			st;
+	int						count;
+	struct stat				st;
 
 	count = 0;
 	while (count < m.num_files)
