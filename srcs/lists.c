@@ -31,7 +31,7 @@ void						ft_list_push_back(t_files **begin_list, struct dirent *ent, char *path
 t_files						*ft_lstnew(struct dirent *ent, char *path)
 {
 	t_files					*alist;
-	struct stat			fstat;
+	struct stat				fstat;
 	char						*nw_path;
 
 	nw_path = make_path_fl(path, ent->d_name);

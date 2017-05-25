@@ -34,7 +34,7 @@ void							ft_alphastrsort(t_main *m)
 		j = i + 1;
 		while (j < m->num_files)
 		{
-			if (m->f.sm_r == TRUE)
+			if (m->f.sm_r == TRUE && m->f.lg_r == FALSE)
 			{
 				if (ft_strcmp(m->ptr[i], m->ptr[j]) < 0)
 					ft_alphastrsortbis(m, i, j);
