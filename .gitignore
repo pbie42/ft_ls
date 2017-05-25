@@ -1,0 +1,4 @@
+/srcs/*.o
+/libft/*.o
+/libft/*.a
+ft_ls
