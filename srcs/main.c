@@ -17,19 +17,19 @@
 
 int								ft_pwd(t_main *m)
 {
-	//Get the value of environment variable PWD
+	//Get the string value of the Present Working Directory
 	m->curr_dir = getenv("PWD");
 	//Check to make sure the current directory isn't null
 	if (ft_pwdcheck(m->curr_dir))
 		return (-1);
 	//Open the current directory
-	m->dp = opendir((const char*)m->curr_dir);
-	if (ft_dircheck(m->dp))
+	m->ds = opendir((const char*)m->curr_dir);
+	if (ft_dircheck(m->ds))
 		return (-1);
-	m->num_files = ft_num_files(m->dp, m->f);
+	m->num_files = ft_num_files(m->ds, m->f);
 	//We are counting the number of files/folders inside the current working
 	//directory. When it's done we close the directory.
-	closedir(m->dp);
+	closedir(m->ds);
 	return (0);
 }
 
@@ -44,8 +44,8 @@ int								ft_num_file_check(t_main *m)
 
 	//Now we open the directory again
 
-	m->dp = opendir((const char*)m->curr_dir);
-	if (ft_dircheck(m->dp))
+	m->ds = opendir((const char*)m->curr_dir);
+	if (ft_dircheck(m->ds))
 		return (-1);
 	return (0);
 }
@@ -53,14 +53,14 @@ int								ft_num_file_check(t_main *m)
 int									main(int ac, char **av)
 {
 	struct dirent			*dptr;
-	t_main						m;
+	t_main					m;
 
 	m.num_files = 0;
 	dptr = NULL;
 	ft_init_flags(&m.f);
 	if (ac > 1 && av[1][0] == '-')
 		ft_find_flags(av, &m.f);
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &m.w);
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &m.w); // This should be returning into something
 	if (ft_pwd(&m) == -1)
 		return (-1);
 	if (ft_num_file_check(&m) == -1)

@@ -1,0 +1,9 @@
+ft_ls:
+	☐ If no flag given check to see if it's a dirertory and if not send error ls: l: No such file or directory
+	☐ If no flags are given and no second argument need files to output horizontally
+	Flags:
+		☐ -R for recursion @high
+		a:
+			☐ if an -l is not provided need files to output horizontally
+	Output:
+		☐ properly space when using -la

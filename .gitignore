@@ -2,3 +2,4 @@
 /libft/*.o
 /libft/*.a
 ft_ls
+/.vscode/settings.json

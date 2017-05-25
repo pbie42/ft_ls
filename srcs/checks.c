@@ -24,13 +24,13 @@ int								ft_pwdcheck(char *curr_dir)
 		return (0);
 }
 
-int								ft_dircheck(DIR *dp)
+int								ft_dircheck(DIR *ds)
 {
-	if (dp == NULL)
+	if (ds == NULL)
 	{
 		ft_putstr("Error: Could not open the working directory");
 		ft_putchar('\n');
-		free(dp);
+		free(ds);
 		return (1);
 	}
 	else

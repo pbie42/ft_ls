@@ -12,16 +12,14 @@
 
 #include "ft_ls.h"
 
-int								ft_num_files(DIR *dp, t_flags f)
+int							ft_num_files(DIR *ds, t_flags f)
 {
-	struct dirent		*dptr;
-	int							num_files;
+	struct dirent			*dptr;
+	int						num_files;
 
 	num_files = 0;
-	while ((dptr = readdir(dp)) != NULL)
+	while ((dptr = readdir(ds)) != NULL)
 	{
-		//Do not count the files beginning with '.'
-		//TODO: will need to change this later on to include all files
 		if (f.a == TRUE && dptr->d_name[0] == '.')
 			num_files++;
 		if (dptr->d_name[0] != '.')
@@ -47,12 +45,12 @@ char							**ft_ptr_malloc(int num_files)
 
 void							ft_ptrfill(t_main *m)
 {
-	int							j;
+	int						j;
 	size_t					l;
 	struct dirent		*dptr;
 
 	j = 0;
-	while ((dptr = readdir(m->dp)) != NULL)
+	while ((dptr = readdir(m->ds)) != NULL)
 	{
 		l = ft_strlen(dptr->d_name) + 1;
 		if (m->f.a == TRUE && dptr->d_name[0] == '.')

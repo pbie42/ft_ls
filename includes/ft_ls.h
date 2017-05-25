@@ -53,13 +53,13 @@
 # include <time.h>
 # include "../libft/includes/libft.h"
 
-typedef int						t_bool;
+typedef int							t_bool;
 
-typedef struct				s_files
+typedef struct						s_files
 {
-	struct s_files			*next;
-	struct s_files			*prev;
-	struct s_files			*sub_dir;
+	struct s_files					*next;
+	struct s_files					*prev;
+	struct s_files					*sub_dir;
 	time_t							mtime;
 	mode_t							st_mode;
 	nlink_t							st_nlink;
@@ -67,30 +67,30 @@ typedef struct				s_files
 	gid_t								st_gid;
 	off_t								st_size;
 	ino_t								st_ino;
-	blkcnt_t						st_blocks;
-	struct dirent				*dptr;
-}											t_files;
+	blkcnt_t							st_blocks;
+	struct dirent					*dptr;
+}										t_files;
 
-typedef struct				s_flags
+typedef struct						s_flags
 {
 	t_bool							l;
 	t_bool							a;
 	t_bool							t;
 	t_bool							sm_r;
 	t_bool							lg_r;
-}											t_flags;
+}										t_flags;
 
-typedef struct				s_main
+typedef struct						s_main
 {
 	char								*curr_dir;
-	DIR									*dp;
+	DIR								*ds;
 	char								*option;
-	struct  winsize			w;
+	struct winsize					w;
 	char								**ptr;
-	int									num_files;
-	int									filesize1;
+	int								num_files;
+	int								filesize1;
 	t_flags							f;
-}											t_main;
+}										t_main;
 
 void									ft_foldercolor(char **ptr, int count);
 void									ft_execcolor(char **ptr, int count);
@@ -105,9 +105,9 @@ void									ft_alphastrsort(t_main *m);
 void									ft_print(t_main m);
 void									ft_printpermissions(struct stat st);
 //void                  ft_list_push_back(t_files **begin_list, struct dirent *ent, char *path);
-int										ft_pwdcheck(char *curr_dir);
-int										ft_dircheck(DIR *dp);
-int										ft_num_files(DIR *dp, t_flags f);
+int									ft_pwdcheck(char *curr_dir);
+int									ft_dircheck(DIR *dp);
+int									ft_num_files(DIR *dp, t_flags f);
 char									**ft_ptr_malloc(int num_files);
 //t_files               *ft_lstnew(struct dirent *ent, char *path);
 char									*make_path_fl(char *dir, char *file);
