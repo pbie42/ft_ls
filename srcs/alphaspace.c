@@ -25,8 +25,8 @@ void							ft_alphastrsortbis(t_main *m, int i, int j)
 
 void							ft_alphastrsort(t_main *m)
 {
-	int							i;
-	int							j;
+	int						i;
+	int						j;
 
 	i = 0;
 	while (i < m->num_files - 1)

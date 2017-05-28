@@ -12,36 +12,52 @@
 
 #include "ft_ls.h"
 
-void						ft_list_push_back(t_files **begin_list, struct dirent *ent, char *path)
+void						ft_lpb(t_files **b_lst, struct dirent *dptr, char *pwd)
 {
 	t_files				*list;
 
-	list = *begin_list;
+	// ft_putendl("lpb entered");
+	list = *b_lst;
 	if (!list)
-		list = ft_lstnew(ent, path);
+		list = ft_listnew(dptr, pwd);
 	else
 	{
+		// ft_putendl("else ft_lpb entered");
 		while ((list)->next)
+		{
 			list = list->next;
-		list->next = ft_lstnew(ent, path);
-		list->next->prev = list;
+		}
+		// ft_putendl("out while lpb");
+		// ft_putendl(pwd);
+		list->next = ft_listnew(dptr, pwd);
 	}
+	// free(list);
 }
 
-t_files						*ft_lstnew(struct dirent *ent, char *path)
+t_files					*ft_listnew(struct dirent *dptr, char *path)
 {
-	t_files					*alist;
-	struct stat				fstat;
-	char						*nw_path;
+	t_files				*alist;
+	struct stat			fstat;
+	char					*nw_path;
 
-	nw_path = make_path_fl(path, ent->d_name);
-	if (stat(nw_path, &fstat) < 0)
+	// ft_putendl("ENTERED LISTNEW");
+	// ft_putendl("\n");
+	// ft_putstr("old path: ");
+	// ft_putendl(path);
+	nw_path = make_path_fl(path, dptr->d_name);
+	// ft_putendl("going into stat");
+	// ft_putstr("new path :");
+	// ft_putendl(nw_path);
+	if (lstat(nw_path, &fstat) < 0)
+	{
+		ft_putendl("path is null homie");
 		return (NULL);
+	}
+	// ft_putendl("goin to free");
 	free(nw_path);
 	if (!(alist = (t_files *)malloc(sizeof(t_files))))
 		return (NULL);
 	alist->next = NULL;
-	alist->prev = NULL;
 	alist->sub_dir = NULL;
 	alist->mtime = fstat.st_mtime;
 	alist->st_mode = fstat.st_mode;
@@ -51,6 +67,8 @@ t_files						*ft_lstnew(struct dirent *ent, char *path)
 	alist->st_size = fstat.st_size;
 	alist->st_ino = fstat.st_ino;
 	alist->st_blocks = fstat.st_blocks;
-	alist->ent = ent;
+	alist->dptr = dptr;
+	// ft_putendl("returning alist");
+	// ft_putendl("\n");
 	return (alist);
 }

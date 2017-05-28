@@ -26,9 +26,11 @@ int								ft_pwd(t_main *m)
 	m->ds = opendir((const char*)m->curr_dir);
 	if (ft_dircheck(m->ds))
 		return (-1);
+	// We pass the directory stream and the flags struct in our main struct to
+	// num files to get the number of files with regards to our flags
 	m->num_files = ft_num_files(m->ds, m->f);
 	//We are counting the number of files/folders inside the current working
-	//directory. When it's done we close the directory.
+	//directory. When it's done we close the directory stream.
 	closedir(m->ds);
 	return (0);
 }
@@ -52,8 +54,9 @@ int								ft_num_file_check(t_main *m)
 
 int									main(int ac, char **av)
 {
-	struct dirent			*dptr;
-	t_main					m;
+	struct dirent					*dptr;
+	t_main							m;
+	t_files							*files;
 
 	m.num_files = 0;
 	dptr = NULL;
@@ -65,15 +68,15 @@ int									main(int ac, char **av)
 	if (ft_num_file_check(&m) == -1)
 		return (-1);
 	ft_ptrfill(&m);
-
-	// if (m.f.lg_r == TRUE)
-	// {
-	// 	ft_
-	// }
-
+	ft_putendl("going to large r");
+	if (m.f.lg_r == TRUE)
+		files = ft_list(m.curr_dir);
+	ft_putendl("DONE WITH RECURSION!!!");
+	ft_putendl("\n");
 	ft_alphastrsort(&m);
 	ft_print(m);
 	//Free the allocated memory
+	// free(files);
 	free(m.ptr);
 	return (0);
 }

@@ -49,3 +49,41 @@ void			ft_normcolornorm(char **ptr, int count)
 	ft_putstr(ptr[count]);
 	ft_putstr("   ");
 }
+
+void			ft_foldercolorR(char *ptr)
+{
+	ft_putstr(CYAN);
+	ft_putstr(ptr);
+	ft_putstr(STOP);
+	ft_putchar('\n');
+}
+
+void			ft_execcolorR(char *ptr)
+{
+	ft_putstr(MAGENTA);
+	ft_putstr(ptr);
+	ft_putstr(STOP);
+	ft_putchar('\n');
+}
+
+void			ft_foldercolornormR(char *ptr)
+{
+	ft_putstr(CYAN);
+	ft_putstr(ptr);
+	ft_putstr(STOP);
+	ft_putstr("   ");
+}
+
+void			ft_execcolornormR(char *ptr)
+{
+	ft_putstr(MAGENTA);
+	ft_putstr(ptr);
+	ft_putstr(STOP);
+	ft_putstr("   ");
+}
+
+void			ft_normcolornormR(char *ptr)
+{
+	ft_putstr(ptr);
+	ft_putstr("   ");
+}

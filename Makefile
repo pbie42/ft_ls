@@ -22,7 +22,9 @@ SRC = srcs/main.c \
 			srcs/path.c \
 			srcs/alphaspace.c \
 			srcs/print.c \
-			srcs/printpermissions.c
+			srcs/printpermissions.c \
+			srcs/lg_r.c \
+			srcs/lists.c
 
 OBJ = $(SRC:.c=.o)
 

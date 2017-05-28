@@ -54,6 +54,29 @@ void							ft_printtime(struct stat st)
 	ft_putchar(' ');
 }
 
+void							ft_check_exec(int count, t_main m, struct stat st)
+{
+//Check if the file/folder is executable.
+	if (!access((const char*)m.ptr[count], X_OK))
+	{
+		if (S_ISDIR(st.st_mode))
+		{
+			//If folder print in blue
+			ft_foldercolor(m.ptr, count);
+		}
+		else
+		{
+			//If executable print in magenta
+			ft_execcolor(m.ptr, count);
+		}
+	}
+	else
+	{
+		//If normal print as default
+		ft_putendl(m.ptr[count]);
+	}
+}
+
 void							ft_print(t_main m)
 {
 	char						*nw_path;
@@ -78,25 +101,7 @@ void							ft_print(t_main m)
 			ft_printinfo(st);
 			ft_printtime(st);
 		}
-		//Check if the file/folder is executable.
-		if (!access((const char*)m.ptr[count], X_OK))
-		{
-			if (S_ISDIR(st.st_mode))
-			{
-				//If folder print in blue
-				ft_foldercolor(m.ptr, count);
-			}
-			else
-			{
-				//If executable print in magenta
-				ft_execcolor(m.ptr, count);
-			}
-		}
-		else
-		{
-			//If normal print as default
-			ft_putendl(m.ptr[count]);
-		}
+		ft_check_exec(count, m, st);
 		count++;
 	}
 }

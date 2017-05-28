@@ -47,7 +47,7 @@ void							ft_ptrfill(t_main *m)
 {
 	int						j;
 	size_t					l;
-	struct dirent		*dptr;
+	struct dirent			*dptr;
 
 	j = 0;
 	while ((dptr = readdir(m->ds)) != NULL)
@@ -65,4 +65,5 @@ void							ft_ptrfill(t_main *m)
 		}
 	}
 	m->ptr[j] = NULL;
+	closedir(m->ds);
 }

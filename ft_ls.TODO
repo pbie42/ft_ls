@@ -1,4 +1,6 @@
 ft_ls:
+	☐ Need to rewrite code to be based around recursions
+		☐ Check if a file is a directory and if it is then go further.
 	☐ If no flag given check to see if it's a dirertory and if not send error ls: l: No such file or directory
 	☐ If no flags are given and no second argument need files to output horizontally
 	☐ If -R is given with -r make sure files stay in alpha order within folders but folder order is reversed

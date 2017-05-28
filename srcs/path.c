@@ -17,6 +17,7 @@ char					*make_path_fl(char *dir, char *file)
 	char				*nw_path;
 	size_t			l;
 
+	// ft_putendl("making new path");
 	l = ft_strlen(dir) + ft_strlen(file);
 	l += 1;
 	nw_path = NULL;
