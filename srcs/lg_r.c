@@ -28,11 +28,7 @@ t_files						*ft_list(char *curr_dir)
 	if(!(files = ft_listnew(dptr, curr_dir)))
 		return (NULL);
 	while((dptr = readdir(ds)))
-	{
-		ft_putstr("    ");
-		ft_putendl(dptr->d_name);
 		ft_lpb(&files, dptr, curr_dir);
-	}
 	// We do this because we are going to want to return the start of the list
 	// and if we iterate over it we will return the end of the list because we will
 	// have lost the head of the list address
@@ -49,43 +45,25 @@ t_files						*ft_list(char *curr_dir)
 					(tmp)->sub_dir = ft_list(make_path_fl(curr_dir, (tmp)->name));
 			}
 			else
-			{
-				//If executable print in magenta
 				ft_execcolorR((tmp)->name);
-			}
 		}
 		else
-		{
-			//If normal print as default
 			ft_putendl((tmp)->name);
-		}
 		tmp = tmp->next;
 	}
-	// if (!access((const char*)(tmp)->dptr->d_name, X_OK))
-	// {
-	// 	if (S_ISDIR((tmp)->st_mode))
-	// 	{
-	// 		ft_foldercolorR((tmp)->dptr->d_name);
-	// 		// ft_putendl("IN IT");
-	// 		// ft_putendl(curr_dir);
-	// 		// ft_putstr("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-	// 		// ft_putendl("\n");
-	// 		if ((tmp)->dptr->d_name[0] != '.')
-	// 			(tmp)->sub_dir = ft_list(make_path_fl(curr_dir, (tmp)->dptr->d_name));
-	// 		// ft_putendl("OUT IT");
-	// 	}
-	// 	else
-	// 	{
-	// 		//If executable print in magenta
-	// 		ft_execcolorR((tmp)->dptr->d_name);
-	// 	}
-	// }
-	// else
-	// {
-	// 	//If normal print as default
-	// 	// ft_putendl("in the else");
-	// 	ft_putendl((tmp)->dptr->d_name);
-	// }
+	if (!access((const char*)(tmp)->dptr->d_name, X_OK))
+	{
+		if (S_ISDIR((tmp)->st_mode))
+		{
+			ft_foldercolorR((tmp)->name);
+			if ((tmp)->dptr->d_name[0] != '.')
+				(tmp)->sub_dir = ft_list(make_path_fl(curr_dir, (tmp)->name));
+		}
+		else
+			ft_execcolorR((tmp)->name);
+	}
+	else
+		ft_putendl((tmp)->name);
 	free(tmp);
 	return files;
 }

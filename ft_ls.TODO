@@ -1,14 +1,23 @@
 ft_ls:
 	☐ Need to rewrite code to be based around recursions
-		☐ Check if a file is a directory and if it is then go further.
-	☐ If no flag given check to see if it's a dirertory and if not send error ls: l: No such file or directory
+		✔ Check if a file is a directory and if it is then go further. @done (6/5/2017, 3:23:21 PM)
+	☐ If no flag given check to see if it's a directory and if not send error ls: l: No such file or directory
 	☐ If no flags are given and no second argument need files to output horizontally
 	☐ If -R is given with -r make sure files stay in alpha order within folders but folder order is reversed
 		☐ For the moment files do not reverse if -R is with -r. Need to expand on this later (alphaspace.c)
 	Flags:
-		☐ -R for recursion @high
-		☐ Make an if for the -R flag in the main
+		R:
+			✔ -R for recursion @high @done (6/5/2017, 3:23:08 PM)
+			✔ Make an if for the -R flag in the main @done (6/5/2017, 3:23:12 PM)
+			☐ Need to do a proper printing of the files.
+			☐ need to take into account all flags with -R
 		a:
 			☐ if an -l is not provided need files to output horizontally
+		t:
+			☐ Figure out how to sort by time for both -R and without
+		r:
+			☐ Set up for -R
+		l:
+			☐ Set up for -R
 	Output:
 		☐ properly space when using -la
