@@ -19,9 +19,9 @@ char					*make_path_fl(char *dir, char *file)
 
 	// ft_putendl("making new path");
 	l = ft_strlen(dir) + ft_strlen(file);
-	l = l + 2;
+	l += 2;
 	nw_path = NULL;
-	if (!(nw_path = (char*)malloc(sizeof(char) * l + 1)))
+	if (!(nw_path = (char*)malloc(sizeof(char) * l)))
 		return (NULL);
 	nw_path = ft_strcpy(nw_path, dir);
 	nw_path = ft_strcat(nw_path, "/");

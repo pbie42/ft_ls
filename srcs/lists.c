@@ -14,36 +14,28 @@
 
 void						ft_lpb(t_files **b_lst, struct dirent *dptr, char *pwd)
 {
-	// t_files				*list;
-	t_files				*curr;
-	t_files				*prev;
-	t_files				*new;
-
-	new = ft_listnew(dptr, pwd);
-	curr = NULL;
-	prev = NULL;
+	t_files				*list;
 
 	ft_putendl("lpb entered");
-	if (!*b_lst)
+	list = *b_lst;
+	if (!list)
 	{
 		ft_putendl("this is happening");
-		*b_lst = ft_listnew(dptr, pwd);
-		return ;
+		list = ft_listnew(dptr, pwd);
 	}
-	curr = *b_lst;
-
-	ft_putendl("else ft_lpb entered");
-	while (curr)
+	else
 	{
-		prev = curr;
-		curr = curr->next;
-		ft_putendl("after");
-		ft_putchar('\n');
+		ft_putendl("else ft_lpb entered");
+		while ((list)->next)
+		{
+			list = list->next;
+			ft_putendl("after");
+			ft_putchar('\n');
+		}
+		ft_putendl("out while lpb");
+		// ft_putendl(pwd);
+		list->next = ft_listnew(dptr, pwd);
 	}
-	ft_putendl("out while lpb");
-	// ft_putendl(pwd);
-	prev->next = new;
-	new->next = curr;
 	ft_putendl("\n");
 	// free(list);
 }
