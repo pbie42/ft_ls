@@ -16,28 +16,15 @@ void						ft_lpb(t_files **b_lst, struct dirent *dptr, char *pwd)
 {
 	t_files				*list;
 
-	ft_putendl("lpb entered");
 	list = *b_lst;
 	if (!list)
-	{
-		ft_putendl("this is happening");
 		list = ft_listnew(dptr, pwd);
-	}
 	else
 	{
-		ft_putendl("else ft_lpb entered");
 		while ((list)->next)
-		{
 			list = list->next;
-			ft_putendl("after");
-			ft_putchar('\n');
-		}
-		ft_putendl("out while lpb");
-		// ft_putendl(pwd);
 		list->next = ft_listnew(dptr, pwd);
 	}
-	ft_putendl("\n");
-	// free(list);
 }
 
 t_files					*ft_listnew(struct dirent *dptr, char *path)
@@ -46,20 +33,9 @@ t_files					*ft_listnew(struct dirent *dptr, char *path)
 	struct stat			fstat;
 	char					*nw_path;
 
-	ft_putendl("ENTERED LISTNEW");
-	// ft_putendl("\n");
-	// ft_putstr("old path: ");
-	// ft_putendl(path);
 	nw_path = make_path_fl(path, dptr->d_name);
-	// ft_putendl("going into stat");
-	// ft_putstr("new path :");
-	// ft_putendl(nw_path);
 	if (lstat(nw_path, &fstat) < 0)
-	{
-		ft_putendl("path is null homie");
 		return (NULL);
-	}
-	// ft_putendl("goin to free");
 	free(nw_path);
 	if (!(alist = (t_files *)malloc(sizeof(t_files))))
 		return (NULL);
@@ -74,7 +50,6 @@ t_files					*ft_listnew(struct dirent *dptr, char *path)
 	alist->st_ino = fstat.st_ino;
 	alist->st_blocks = fstat.st_blocks;
 	alist->dptr = dptr;
-	ft_putendl("returning alist");
-	// ft_putendl("\n");
+	alist->name = ft_strdup(dptr->d_name);	
 	return (alist);
 }

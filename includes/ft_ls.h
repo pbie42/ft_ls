@@ -57,6 +57,7 @@ typedef int					t_bool;
 
 typedef struct				s_files
 {
+	char						*name;
 	struct s_files			*next;
 	struct s_files			*sub_dir;
 	time_t					mtime;
