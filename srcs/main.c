@@ -57,26 +57,29 @@ int									main(int ac, char **av)
 	struct dirent					*dptr;
 	t_main							m;
 	t_files							*files;
+	char								*pwd;
 
 	m.num_files = 0;
 	dptr = NULL;
+	files = NULL;
 	if (ac > 1 && av[1][0] == '-')
 		ft_find_flags(av, &m.f);
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &m.w); // This should be returning into something
-	if (ft_pwd(&m) == -1)
-		return (-1);
-	if (ft_num_file_check(&m) == -1)
-		return (-1);
-	ft_ptrfill(&m);
-	ft_putendl("going to large r");
+	// // ioctl(STDOUT_FILENO, TIOCGWINSZ, &m.w); // This should be returning into something
+	// if (ft_pwd(&m) == -1)
+	// 	return (-1);
+	// if (ft_num_file_check(&m) == -1)
+	// 	return (-1);
+	// // ft_ptrfill(&m);
+	// ft_putendl("going to large r");
+	pwd = getenv("PWD");
 	if (m.f.lg_r == TRUE)
-		files = ft_list(m.curr_dir);
+		files = ft_list(pwd);
 	ft_putendl("DONE WITH RECURSION!!!");
 	ft_putendl("\n");
-	ft_alphastrsort(&m);
-	ft_print(m);
+	// ft_alphastrsort(&m);
+	// ft_print(m);
 	//Free the allocated memory
 	// free(files);
-	free(m.ptr);
+	// free(m.ptr);
 	return (0);
 }

@@ -23,7 +23,7 @@ t_files						*ft_list(char *curr_dir)
 	files = NULL;
 	// tmp = NULL;
 
-	// ft_putendl("LG-R Entered");
+	ft_putendl("LG-R Entered");
 	// ft_putstr("current dir :");
 	// ft_putendl(curr_dir);
 	// ft_putnbr(ft_pwdcheck(curr_dir));
@@ -35,7 +35,7 @@ t_files						*ft_list(char *curr_dir)
 	if(!(files = ft_listnew(dptr, curr_dir)))
 		return (NULL);
 	// ft_putendl("DONE WITH LIST NEW");
-	while((dptr = readdir(ds)) != NULL)
+	while((dptr = readdir(ds)))
 	{
 		ft_putendl("going to lpb");
 		// ft_putstr("cd :");
@@ -84,31 +84,31 @@ t_files						*ft_list(char *curr_dir)
 		// ft_putendl("going to next");
 		tmp = tmp->next;
 	}
-	if (!access((const char*)(tmp)->dptr->d_name, X_OK))
-		{
-			if (S_ISDIR((tmp)->st_mode))
-			{
-				ft_foldercolorR((tmp)->dptr->d_name);
-				// ft_putendl("IN IT");
-				// ft_putendl(curr_dir);
-				// ft_putstr("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-				// ft_putendl("\n");
-				if ((tmp)->dptr->d_name[0] != '.')
-					(tmp)->sub_dir = ft_list(make_path_fl(curr_dir, (tmp)->dptr->d_name));
-				// ft_putendl("OUT IT");
-			}
-			else
-			{
-				//If executable print in magenta
-				ft_execcolorR((tmp)->dptr->d_name);
-			}
-		}
-		else
-		{
-			//If normal print as default
-			// ft_putendl("in the else");
-			ft_putendl((tmp)->dptr->d_name);
-		}
+	// if (!access((const char*)(tmp)->dptr->d_name, X_OK))
+	// {
+	// 	if (S_ISDIR((tmp)->st_mode))
+	// 	{
+	// 		ft_foldercolorR((tmp)->dptr->d_name);
+	// 		// ft_putendl("IN IT");
+	// 		// ft_putendl(curr_dir);
+	// 		// ft_putstr("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	// 		// ft_putendl("\n");
+	// 		if ((tmp)->dptr->d_name[0] != '.')
+	// 			(tmp)->sub_dir = ft_list(make_path_fl(curr_dir, (tmp)->dptr->d_name));
+	// 		// ft_putendl("OUT IT");
+	// 	}
+	// 	else
+	// 	{
+	// 		//If executable print in magenta
+	// 		ft_execcolorR((tmp)->dptr->d_name);
+	// 	}
+	// }
+	// else
+	// {
+	// 	//If normal print as default
+	// 	// ft_putendl("in the else");
+	// 	ft_putendl((tmp)->dptr->d_name);
+	// }
 	free(tmp);
 	return files;
 }

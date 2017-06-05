@@ -14,23 +14,37 @@
 
 void						ft_lpb(t_files **b_lst, struct dirent *dptr, char *pwd)
 {
-	t_files				*list;
+	// t_files				*list;
+	t_files				*curr;
+	t_files				*prev;
+	t_files				*new;
 
-	// ft_putendl("lpb entered");
-	list = *b_lst;
-	if (!list)
-		list = ft_listnew(dptr, pwd);
-	else
+	new = ft_listnew(dptr, pwd);
+	curr = NULL;
+	prev = NULL;
+
+	ft_putendl("lpb entered");
+	if (!*b_lst)
 	{
-		// ft_putendl("else ft_lpb entered");
-		while ((list)->next)
-		{
-			list = list->next;
-		}
-		// ft_putendl("out while lpb");
-		// ft_putendl(pwd);
-		list->next = ft_listnew(dptr, pwd);
+		ft_putendl("this is happening");
+		*b_lst = ft_listnew(dptr, pwd);
+		return ;
 	}
+	curr = *b_lst;
+
+	ft_putendl("else ft_lpb entered");
+	while (curr)
+	{
+		prev = curr;
+		curr = curr->next;
+		ft_putendl("after");
+		ft_putchar('\n');
+	}
+	ft_putendl("out while lpb");
+	// ft_putendl(pwd);
+	prev->next = new;
+	new->next = curr;
+	ft_putendl("\n");
 	// free(list);
 }
 
@@ -40,7 +54,7 @@ t_files					*ft_listnew(struct dirent *dptr, char *path)
 	struct stat			fstat;
 	char					*nw_path;
 
-	// ft_putendl("ENTERED LISTNEW");
+	ft_putendl("ENTERED LISTNEW");
 	// ft_putendl("\n");
 	// ft_putstr("old path: ");
 	// ft_putendl(path);
@@ -68,7 +82,7 @@ t_files					*ft_listnew(struct dirent *dptr, char *path)
 	alist->st_ino = fstat.st_ino;
 	alist->st_blocks = fstat.st_blocks;
 	alist->dptr = dptr;
-	// ft_putendl("returning alist");
+	ft_putendl("returning alist");
 	// ft_putendl("\n");
 	return (alist);
 }
