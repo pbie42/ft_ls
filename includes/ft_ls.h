@@ -112,6 +112,7 @@ void							ft_print(t_main m);
 void							ft_printpermissions(struct stat st);
 void							ft_printinfo(struct stat st);
 void							ft_printtime(struct stat st);
+void							ft_printR(t_files *tmp, t_flags flags);
 void							ft_check_exec(int count, t_main m, struct stat st);
 void							ft_lpb(t_files **b_lst, struct dirent *dptr, char *pwd);
 int							ft_pwdcheck(char *curr_dir);
