@@ -11,6 +11,11 @@ ft_ls:
 			✔ Make an if for the -R flag in the main @done (6/5/2017, 3:23:12 PM)
 			☐ Need to do a proper printing of the files.
 			☐ need to take into account all flags with -R
+				✔ a @done (6/17/2017, 7:59:47 PM)
+				☐ t
+				☐ r
+				☐ l
+			✔ Work with folders that start with . @high @done (6/17/2017, 7:59:04 PM)
 		a:
 			☐ if an -l is not provided need files to output horizontally
 		t:

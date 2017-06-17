@@ -79,7 +79,7 @@ int									main(int ac, char **av)
 	pwd = getenv("PWD");
 	if (m.f.lg_r == TRUE)
 	{
-		files = ft_list(pwd);
+		files = ft_list(pwd, m.f);
 		ft_putendl("DONE WITH RECURSION!!!");
 		ft_putendl("\n");
 	}

@@ -115,7 +115,7 @@ int							ft_pwdcheck(char *curr_dir);
 int							ft_dircheck(DIR *dp);
 int							ft_num_files(DIR *dp, t_flags f);
 char							**ft_ptr_malloc(int num_files);
-t_files						*ft_list(char *curr_dir);
+t_files						*ft_list(char *curr_dir, t_flags flags);
 t_files						*ft_listnew(struct dirent *ent, char *path);
 char							*make_path_fl(char *dir, char *file);
 
