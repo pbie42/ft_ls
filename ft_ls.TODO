@@ -19,5 +19,9 @@ ft_ls:
 			☐ Set up for -R
 		l:
 			☐ Set up for -R
+		Bonuses:
+			☐ -u, -f, -g, -d
+			g:
+				☐ Same as -l but without file owner name
 	Output:
 		☐ properly space when using -la
