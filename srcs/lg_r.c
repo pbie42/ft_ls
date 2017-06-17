@@ -14,22 +14,28 @@
 
 void							ft_printR(t_files *tmp, char *curr_dir, t_flags flags)
 {
+	// if (flags.l == TRUE)
+	// {
+	// 	ft_printpermissions((tmp)->stat);
+	// 	ft_printinfo((tmp)->stat);
+	// 	ft_printtime((tmp)->stat);
+	// }
 	if (!access((const char*)(tmp)->dptr->d_name, X_OK))
+	{
+		if (S_ISDIR((tmp)->st_mode))
 		{
-			if (S_ISDIR((tmp)->st_mode))
-			{
-				ft_foldercolorR((tmp)->name);
-				// ft_putendl("\n");
-				// if ((tmp)->dptr->d_name[0] != '.')
-				if (ft_strcmp((tmp)->dptr->d_name, ".")
-					&& ft_strcmp((tmp)->dptr->d_name, ".."))
-					(tmp)->sub_dir = ft_list(make_path_fl(curr_dir, (tmp)->name), flags);
-			}
-			else
-				ft_execcolorR((tmp)->name);
+			ft_foldercolorR((tmp)->name);
+			// ft_putendl("\n");
+			// if ((tmp)->dptr->d_name[0] != '.')
+			if (ft_strcmp((tmp)->dptr->d_name, ".")
+				&& ft_strcmp((tmp)->dptr->d_name, ".."))
+				(tmp)->sub_dir = ft_list(make_path_fl(curr_dir, (tmp)->name), flags);
 		}
 		else
-			ft_putendl((tmp)->name);
+			ft_execcolorR((tmp)->name);
+	}
+	else
+		ft_putendl((tmp)->name);
 }
 
 t_files						*ft_list(char *curr_dir, t_flags flags)
@@ -44,22 +50,31 @@ t_files						*ft_list(char *curr_dir, t_flags flags)
 		return (NULL);
 	if(!(dptr = readdir(ds)))
 		return (NULL);
-	if (flags.a)
+	if(!flags.a)
 		while((dptr = readdir(ds)) && dptr->d_name[0] == '.')
+		{
+			// ft_putendl("dis is happenin");
 			ft_putchar('\0');
+		}
 	if(!(files = ft_listnew(dptr, curr_dir)))
 		return (NULL);
-	if(flags.a)
-	{
-		ft_putendl("gettin here");
-		while((dptr = readdir(ds)))
-			if (dptr->d_name[0] != '.')
-				ft_lpb(&files, dptr, curr_dir);
-	} else {
-		ft_putendl("actually here");
-		while((dptr = readdir(ds)))
-			ft_lpb(&files, dptr, curr_dir);
-	}
+	ft_putchar('\n');
+	ft_putendl(curr_dir);
+	while((dptr = readdir(ds)))
+		ft_lpb(&files, dptr, curr_dir);
+	// if(flags.a)
+	// {
+	// 	ft_putchar('\n');
+	// 	ft_putendl(curr_dir);
+	// 	while((dptr = readdir(ds)))
+	// 		if (dptr->d_name[0] != '.')
+	// 			ft_lpb(&files, dptr, curr_dir);
+	// } else {
+	// 	ft_putchar('\n');
+	// 	ft_putendl(curr_dir);
+	// 	while((dptr = readdir(ds)))
+	// 		ft_lpb(&files, dptr, curr_dir);
+	// }
 	// We do this because we are going to want to return the start of the list
 	// and if we iterate over it we will return the end of the list because we will
 	// have lost the head of the list address

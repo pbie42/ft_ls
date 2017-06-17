@@ -60,6 +60,7 @@ typedef struct				s_files
 	char						*name;
 	struct s_files			*next;
 	struct s_files			*sub_dir;
+	struct stat				stat;
 	time_t					mtime;
 	mode_t					st_mode;
 	nlink_t					st_nlink;
@@ -109,6 +110,8 @@ void							ft_find_flags(char **options, t_flags *f);
 void							ft_alphastrsort(t_main *m);
 void							ft_print(t_main m);
 void							ft_printpermissions(struct stat st);
+void							ft_printinfo(struct stat st);
+void							ft_printtime(struct stat st);
 void							ft_check_exec(int count, t_main m, struct stat st);
 void							ft_lpb(t_files **b_lst, struct dirent *dptr, char *pwd);
 int							ft_pwdcheck(char *curr_dir);
