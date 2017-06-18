@@ -72,7 +72,7 @@ typedef struct				s_files
 	struct dirent			*dptr;
 }								t_files;
 
-typedef struct						s_flags
+typedef struct				s_flags
 {
 	t_bool					l;
 	t_bool					a;
@@ -80,6 +80,13 @@ typedef struct						s_flags
 	t_bool					sm_r;
 	t_bool					lg_r;
 }								t_flags;
+
+typedef struct				s_r
+{
+	DIR						*ds;
+	struct dirent			*dptr;
+	t_files					*files;
+}								t_r;
 
 typedef struct				s_main
 {

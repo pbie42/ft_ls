@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-void							ft_list_bis(t_files *files, char *curr_dir, t_flags flags)
+void							ft_list_b(t_files *files, char *curr_dir, t_flags flags)
 {
 	t_files					*tmp;
 	char						*newPath;
@@ -63,32 +63,28 @@ void							ft_printR(t_files *tmp, t_flags flags)
 
 t_files						*ft_list(char *curr_dir, t_flags flags)
 {
-	DIR						*ds;
-	struct dirent			*dptr;
-	t_files					*files;
+	t_r						r;
 	t_files					*tmp;
 
-	if(flags.a)
-		ft_putchar('\0');
-	if(!(ds = opendir(curr_dir)))
+	if(!(r.ds = opendir(curr_dir)))
 		return (NULL);
-	if(!(dptr = readdir(ds)))
+	if(!(r.dptr = readdir(r.ds)))
 		return (NULL);
 	if(!flags.a)
-		while((dptr = readdir(ds)) && dptr->d_name[0] == '.')
+		while((r.dptr = readdir(r.ds)) && r.dptr->d_name[0] == '.')
 			ft_putchar('\0');
-	if(!(files = ft_listnew(dptr, curr_dir)))
+	if(!(r.files = ft_listnew(r.dptr, curr_dir)))
 		return (NULL);
-	while((dptr = readdir(ds)))
-		ft_lpb(&files, dptr, curr_dir);
-	tmp = files;
+	while((r.dptr = readdir(r.ds)))
+		ft_lpb(&r.files, r.dptr, curr_dir);
+	tmp = r.files;
 	while (tmp->next)
 	{
 		ft_printR(tmp, flags);
 		tmp = tmp->next;
 	}
 	ft_printR(tmp, flags);
-	ft_list_bis(files, curr_dir, flags);
+	ft_list_b(r.files, curr_dir, flags);
 	free(tmp);
-	return files;
+	return r.files;
 }
