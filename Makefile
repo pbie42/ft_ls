@@ -24,7 +24,8 @@ SRC = srcs/main.c \
 			srcs/print.c \
 			srcs/printpermissions.c \
 			srcs/lg_r.c \
-			srcs/lists.c
+			srcs/lists.c \
+			srcs/ft_list_swap.c
 
 OBJ = $(SRC:.c=.o)
 

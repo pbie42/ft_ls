@@ -78,6 +78,10 @@ t_files						*ft_list(char *curr_dir, t_flags flags)
 	while((r.dptr = readdir(r.ds)))
 		ft_lpb(&r.files, r.dptr, curr_dir);
 	tmp = r.files;
+	if (flags.r == TRUE)
+	{
+		
+	}
 	while (tmp->next)
 	{
 		ft_printR(tmp, flags);
