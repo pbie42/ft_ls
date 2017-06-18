@@ -12,22 +12,12 @@
 
 #include "ft_ls.h"
 
-void							ft_makeR(t_files *tmp, char *curr_dir, t_flags flags)
+void							ft_list_bis(t_files *files, char *curr_dir, t_flags flags)
 {
-	ft_putendl("makeR");
-	if (S_ISDIR((tmp)->st_mode))
-	{
-		if (((tmp)->dptr->d_name[0] == '.'
-			&& strcmp((tmp)->dptr->d_name, ".")
-			&& strcmp((tmp)->dptr->d_name, "..")))
-			(tmp)->sub_dir = ft_list(make_path_fl(curr_dir, (tmp)->name), flags);
-	}
-}
-
-void							ft_list_bis(t_files *tmp, char *curr_dir, t_flags flags)
-{
+	t_files					*tmp;
 	char						*newPath;
 
+	tmp = files;
 	while (tmp->next)
 	{
 		if (S_ISDIR((tmp)->st_mode))
@@ -48,7 +38,7 @@ void							ft_list_bis(t_files *tmp, char *curr_dir, t_flags flags)
 	}
 }
 
-void							ft_printR(t_files *tmp)
+void							ft_printType(t_files *tmp)
 {
 	if (S_ISDIR((tmp)->st_mode))
 		ft_foldercolorR((tmp)->name);
@@ -60,15 +50,23 @@ void							ft_printR(t_files *tmp)
 		ft_putchar('\0');
 }
 
+void							ft_printR(t_files *tmp, t_flags flags)
+{
+	if (flags.l == TRUE)
+	{
+		ft_printpermissions(tmp->stat);
+		ft_printinfo(tmp->stat);
+		ft_printtime(tmp->stat);
+	}
+	ft_printType(tmp);
+}
+
 t_files						*ft_list(char *curr_dir, t_flags flags)
 {
 	DIR						*ds;
 	struct dirent			*dptr;
 	t_files					*files;
 	t_files					*tmp;
-	t_files					*tmp2;
-
-	files = NULL;
 
 	if(flags.a)
 		ft_putchar('\0');
@@ -83,18 +81,14 @@ t_files						*ft_list(char *curr_dir, t_flags flags)
 		return (NULL);
 	while((dptr = readdir(ds)))
 		ft_lpb(&files, dptr, curr_dir);
-	// We do this because we are going to want to return the start of the list
-	// and if we iterate over it we will return the end of the list because we will
-	// have lost the head of the list address
 	tmp = files;
-	tmp2 = files;
 	while (tmp->next)
 	{
-		ft_printR(tmp);
+		ft_printR(tmp, flags);
 		tmp = tmp->next;
 	}
-	ft_printR(tmp);
-	ft_list_bis(tmp2, curr_dir, flags);
+	ft_printR(tmp, flags);
+	ft_list_bis(files, curr_dir, flags);
 	free(tmp);
 	return files;
 }

@@ -12,9 +12,6 @@
 
 #include "ft_ls.h"
 
-//Have begun the process of taking options and finding the ones I can use.
-//TODO will need to start the recursion process before using any flags.
-
 int								ft_pwd(t_main *m)
 {
 	//Get the string value of the Present Working Directory
@@ -52,47 +49,6 @@ int								ft_num_file_check(t_main *m)
 	return (0);
 }
 
-void									ft_something(char *pwd, t_flags f)
-{
-	t_files							*files;
-	t_files							*head;
-	char								*newPWD;
-
-	// ft_putendl("entering ft_something");
-	files = ft_list(pwd, f);
-	// ft_putendl("exiting ft_list in ft_something");
-	head = files;
-	ft_putendl("getting here homie?");
-	while (head->next)
-	{
-		ft_putendl("entering printR");
-		ft_printR(files, f);
-		// ft_putendl("exiting printR");
-		head = head->next;
-	}
-	ft_putendl("left ft_something first while");
-	ft_printR(files, f);
-	while (files->next)
-	{
-			if ((files)->dptr->d_type == DT_DIR)
-			{
-				if (((files)->dptr->d_name[0] == '.'
-					&& strcmp((files)->dptr->d_name, ".")
-					&& strcmp((files)->dptr->d_name, "..")))
-					// || (files)->dptr->d_name[0] != '.')
-				{
-					ft_putchar('\n');
-					// ft_putendl("entering make path");
-					newPWD = make_path_fl(pwd, (files)->name);
-					// ft_putendl("exited make path");
-					ft_putendl(newPWD);
-					ft_something(newPWD, f);
-				}
-			}
-		files = files->next;
-	}
-}
-
 int									main(int ac, char **av)
 {
 	struct dirent					*dptr;
@@ -115,23 +71,9 @@ int									main(int ac, char **av)
 		ft_ptrfill(&m);
 		ft_alphastrsort(&m);
 		ft_print(m);
-		// ft_putendl("going to large r");
 	}
 	pwd = getenv("PWD");
 	if (m.f.lg_r == TRUE)
-	{
-		files = ft_list(pwd, m.f);
-		// while (files->next)
-		// {
-		// 	ft_putendl(files->name);
-		// 	files = files->next;
-		// }
-		// ft_putendl("going to something");
-		// ft_something(pwd, m.f);
-	}
-	
-	//Free the allocated memory
-	// free(files);
-	// free(m.ptr);
+		ft_list(pwd, m.f);
 	return (0);
 }

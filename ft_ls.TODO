@@ -1,5 +1,5 @@
 ft_ls:
-	☐ Need to rewrite code to be based around recursions
+	✔ Need to rewrite code to be based around recursions @done (6/18/2017, 5:41:19 PM)
 		✔ Check if a file is a directory and if it is then go further. @done (6/5/2017, 3:23:21 PM)
 	☐ If no flag given check to see if it's a directory and if not send error ls: l: No such file or directory
 	☐ If no flags are given and no second argument need files to output horizontally
@@ -14,16 +14,12 @@ ft_ls:
 				✔ a @done (6/17/2017, 7:59:47 PM)
 				☐ t
 				☐ r
-				☐ l
+				✔ l @done (6/18/2017, 5:40:33 PM)
 			✔ Work with folders that start with . @high @done (6/17/2017, 7:59:04 PM)
 		a:
 			☐ if an -l is not provided need files to output horizontally
 		t:
 			☐ Figure out how to sort by time for both -R and without
-		r:
-			☐ Set up for -R
-		l:
-			☐ Set up for -R
 		Bonuses:
 			☐ -u, -f, -g, -d
 			g:
