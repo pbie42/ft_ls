@@ -62,35 +62,34 @@ void									ft_something(char *pwd, t_flags f)
 	files = ft_list(pwd, f);
 	// ft_putendl("exiting ft_list in ft_something");
 	head = files;
-	// ft_putendl("getting here homie?");
-	while (files->next)
-	{
-		// ft_putendl("entering printR");
-		ft_printR(files, f);
-		// ft_putendl("exiting printR");
-		files = files->next;
-	}
-	// ft_putendl("left ft_something first while");
-	ft_printR(files, f);
+	ft_putendl("getting here homie?");
 	while (head->next)
 	{
-		if (!access((const char*)(head)->dptr->d_name, X_OK))
-		{
-			if (S_ISDIR((head)->st_mode))
+		ft_putendl("entering printR");
+		ft_printR(files, f);
+		// ft_putendl("exiting printR");
+		head = head->next;
+	}
+	ft_putendl("left ft_something first while");
+	ft_printR(files, f);
+	while (files->next)
+	{
+			if ((files)->dptr->d_type == DT_DIR)
 			{
-				if (ft_strcmp((head)->dptr->d_name, ".")
-					&& ft_strcmp((head)->dptr->d_name, ".."))
+				if (((files)->dptr->d_name[0] == '.'
+					&& strcmp((files)->dptr->d_name, ".")
+					&& strcmp((files)->dptr->d_name, "..")))
+					// || (files)->dptr->d_name[0] != '.')
 				{
 					ft_putchar('\n');
 					// ft_putendl("entering make path");
-					newPWD = make_path_fl(pwd, (head)->name);
+					newPWD = make_path_fl(pwd, (files)->name);
 					// ft_putendl("exited make path");
 					ft_putendl(newPWD);
 					ft_something(newPWD, f);
 				}
 			}
-		}
-		head = head->next;
+		files = files->next;
 	}
 }
 
@@ -99,10 +98,11 @@ int									main(int ac, char **av)
 	struct dirent					*dptr;
 	t_main							m;
 	char								*pwd;
+	t_files							*files;
 
 	m.num_files = 0;
 	dptr = NULL;
-	// files = NULL;
+	files = NULL;
 	if (ac > 1 && av[1][0] == '-')
 		ft_find_flags(av, &m.f);
 	// // ioctl(STDOUT_FILENO, TIOCGWINSZ, &m.w); // This should be returning into something
@@ -120,7 +120,14 @@ int									main(int ac, char **av)
 	pwd = getenv("PWD");
 	if (m.f.lg_r == TRUE)
 	{
-		ft_something(pwd, m.f);
+		files = ft_list(pwd, m.f);
+		// while (files->next)
+		// {
+		// 	ft_putendl(files->name);
+		// 	files = files->next;
+		// }
+		// ft_putendl("going to something");
+		// ft_something(pwd, m.f);
 	}
 	
 	//Free the allocated memory

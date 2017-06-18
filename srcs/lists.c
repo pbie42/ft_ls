@@ -52,5 +52,7 @@ t_files					*ft_listnew(struct dirent *dptr, char *path)
 	alist->st_blocks = fstat.st_blocks;
 	alist->dptr = dptr;
 	alist->name = ft_strdup(dptr->d_name);
+	// ft_putstr("     ");
+	// ft_putendl(alist->name);
 	return (alist);
 }
