@@ -5,6 +5,7 @@ ft_ls:
 	☐ If no flags are given and no second argument need files to output horizontally
 	☐ If -R is given with -r make sure files stay in alpha order within folders but folder order is reversed
 		☐ For the moment files do not reverse if -R is with -r. Need to expand on this later (alphaspace.c)
+	☐ Need to allow the user to select the directories they would like to have searched @critical
 	Flags:
 		R:
 			✔ -R for recursion @high @done (6/5/2017, 3:23:08 PM)
@@ -13,7 +14,7 @@ ft_ls:
 			☐ need to take into account all flags with -R
 				✔ a @done (6/17/2017, 7:59:47 PM)
 				☐ t
-				☐ r
+				✔ r @done (6/21/2017, 9:00:54 PM)
 				✔ l @done (6/18/2017, 5:40:33 PM)
 			✔ Work with folders that start with . @high @done (6/17/2017, 7:59:04 PM)
 		a:
