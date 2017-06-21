@@ -56,3 +56,63 @@ t_files					*ft_listnew(struct dirent *dptr, char *path)
 	// ft_putendl(alist->name);
 	return (alist);
 }
+
+
+void						sortedInsert(t_files** head, t_files* new_node)
+{
+	t_files				*current;
+
+	if (*head == NULL || ft_strcmp((*head)->name, new_node->name) > 0)
+	{
+		new_node->next = *head;
+		*head = new_node;
+	}
+	else
+	{
+		/* Locate the node before the point of insertion */
+		current = *head;
+		while (current->next != NULL
+				&& ft_strcmp(current->next->name, new_node->name) < 0)
+		{
+				current = current->next;
+		}
+		new_node->next = current->next;
+		current->next = new_node;
+	}
+}
+
+t_files					*reverse_lst(t_files *head)
+{
+	t_files				*curr;
+	t_files				*prev;
+	t_files				*next;
+
+	curr = head;
+	prev = NULL;
+	while (curr)
+	{
+		next = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = next;
+	}
+	head = prev;
+	return head;
+}
+
+void						insertionSort(t_files **head)
+{
+	t_files				*sorted;
+	t_files				*current;
+	t_files				*next;
+	
+	sorted = NULL;
+	current = *head;
+	while (current != NULL)
+	{
+		next = current->next;
+		sortedInsert(&sorted, current);
+		current = next;
+	}
+	*head = sorted;
+}

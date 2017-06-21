@@ -20,6 +20,7 @@ void							ft_list_b(t_files *files, char *curr_dir, t_flags flags)
 	tmp = files;
 	while (tmp->next)
 	{
+		// ft_putendl("this happening?");
 		if (S_ISDIR((tmp)->st_mode))
 		{
 			if (((tmp)->name[0] == '.'
@@ -31,7 +32,6 @@ void							ft_list_b(t_files *files, char *curr_dir, t_flags flags)
 				ft_putchar('\n');
 				ft_putendl(newPath);
 				(tmp)->sub_dir = ft_list(newPath, flags);
-				free(tmp);
 			}
 		}
 		tmp = tmp->next;
@@ -65,6 +65,7 @@ t_files						*ft_list(char *curr_dir, t_flags flags)
 {
 	t_r						r;
 	t_files					*tmp;
+	t_files					*tmp2;
 
 	if(!(r.ds = opendir(curr_dir)))
 		return (NULL);
@@ -78,17 +79,21 @@ t_files						*ft_list(char *curr_dir, t_flags flags)
 	while((r.dptr = readdir(r.ds)))
 		ft_lpb(&r.files, r.dptr, curr_dir);
 	tmp = r.files;
-	if (flags.r == TRUE)
+	insertionSort(&tmp);
+	if (flags.sm_r == TRUE)
 	{
-		
+		tmp = reverse_lst(tmp);
+		tmp2 = tmp;
 	}
+	else
+		tmp2 = r.files;
 	while (tmp->next)
 	{
 		ft_printR(tmp, flags);
 		tmp = tmp->next;
 	}
 	ft_printR(tmp, flags);
-	ft_list_b(r.files, curr_dir, flags);
+	ft_list_b(tmp2, curr_dir, flags);
 	free(tmp);
 	return r.files;
 }

@@ -130,5 +130,7 @@ t_files						*ft_list(char *curr_dir, t_flags flags);
 t_files						*ft_listnew(struct dirent *ent, char *path);
 char							*make_path_fl(char *dir, char *file);
 void							ft_list_swap(t_files **head, t_files **a, t_files **b);
+void 							insertionSort(t_files **head);
+t_files						*reverse_lst(t_files *head);
 
 #endif

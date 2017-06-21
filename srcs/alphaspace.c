@@ -49,3 +49,10 @@ void							ft_alphastrsort(t_main *m)
 		i++;
 	}
 }
+
+// void							ft_lst_alpha(t_files *head)
+// {
+// 	t_files					*x
+// 	t_files					*y
+
+// }
