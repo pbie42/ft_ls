@@ -111,7 +111,6 @@ void						sortedInsertTime(t_files** head, t_files* new_node)
 	}
 	else
 	{
-		/* Locate the node before the point of insertion */
 		current = *head;
 		while (current->next != NULL
 				&& current->next->mtime - new_node->mtime > 0)
@@ -120,14 +119,28 @@ void						sortedInsertTime(t_files** head, t_files* new_node)
 		}
 		if (current->next != NULL && current->next->mtime - new_node->mtime == 0)
 		{
-			ft_putendl("same bruh");
-			ft_putendl(current->next->name);
-			ft_putendl(new_node->name);
-			ft_putnbr(ft_strcmp(current->next->name, new_node->name));
-			ft_putchar('\n');
+			if (ft_strcmp(current->next->name, new_node->name) > 0)
+			{
+				new_node->next = current->next;
+				current->next = new_node;
+			}
+			else
+			{
+				while (current->next != NULL
+				&& ft_strcmp(current->next->name, new_node->name) < 0
+				&& current->next->mtime - new_node->mtime == 0)
+				{
+						current = current->next;
+				}
+				new_node->next = current->next;
+				current->next = new_node;
+			}
 		}
-		new_node->next = current->next;
-		current->next = new_node;
+		else
+		{
+			new_node->next = current->next;
+			current->next = new_node;
+		}
 	}
 }
 

@@ -7,20 +7,16 @@ ft_ls:
 		☐ For the moment files do not reverse if -R is with -r. Need to expand on this later (alphaspace.c)
 	☐ Need to allow the user to select the directories they would like to have searched @critical
 	Flags:
-		R:
+		R/without:
 			✔ -R for recursion @high @done (6/5/2017, 3:23:08 PM)
 			✔ Make an if for the -R flag in the main @done (6/5/2017, 3:23:12 PM)
 			☐ Need to do a proper printing of the files.
-			☐ need to take into account all flags with -R
+			✔ need to take into account all flags with -R @done (6/22/2017, 4:15:10 PM)
 				✔ a @done (6/17/2017, 7:59:47 PM)
-				☐ t
+				✔ t @done (6/22/2017, 4:15:05 PM)
 				✔ r @done (6/21/2017, 9:00:54 PM)
 				✔ l @done (6/18/2017, 5:40:33 PM)
 			✔ Work with folders that start with . @high @done (6/17/2017, 7:59:04 PM)
-		a:
-			☐ if an -l is not provided need files to output horizontally
-		t:
-			☐ Figure out how to sort by time for both -R and without
 		Bonuses:
 			☐ -u, -f, -g, -d
 			g:
