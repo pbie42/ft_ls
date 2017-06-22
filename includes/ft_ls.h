@@ -79,6 +79,7 @@ typedef struct				s_flags
 	t_bool					t;
 	t_bool					sm_r;
 	t_bool					lg_r;
+	t_bool					f;
 }								t_flags;
 
 typedef struct				s_r

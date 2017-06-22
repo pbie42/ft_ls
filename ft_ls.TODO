@@ -19,6 +19,8 @@ ft_ls:
 			✔ Work with folders that start with . @high @done (6/17/2017, 7:59:04 PM)
 		Bonuses:
 			☐ -u, -f, -g, -d
+			f:
+				✔ Does not organize files in directory. -r does nothing to it @done (6/22/2017, 7:24:55 PM)
 			g:
 				☐ Same as -l but without file owner name
 	Output:

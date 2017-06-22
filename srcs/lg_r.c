@@ -54,7 +54,7 @@ t_files						*ft_list(char *curr_dir, t_flags flags)
 		return (NULL);
 	if(!(r.dptr = readdir(r.ds)))
 		return (NULL);
-	if(!flags.a)
+	if(!flags.a && !flags.f)
 		while((r.dptr = readdir(r.ds)) && r.dptr->d_name[0] == '.')
 			ft_putchar('\0');
 	if(!(r.files = ft_listnew(r.dptr, curr_dir)))
@@ -62,8 +62,9 @@ t_files						*ft_list(char *curr_dir, t_flags flags)
 	while((r.dptr = readdir(r.ds)))
 		ft_lpb(&r.files, r.dptr, curr_dir);
 	tmp = r.files;
-	insertionSort(&tmp, flags);
-	if (flags.sm_r == TRUE)
+	if (!flags.f)
+		insertionSort(&tmp, flags);
+	if (flags.sm_r == TRUE && !flags.f)
 	{
 		tmp = reverse_lst(tmp);
 		tmp2 = tmp;
