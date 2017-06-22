@@ -23,7 +23,8 @@ SRC = srcs/main.c \
 			srcs/printpermissions.c \
 			srcs/lg_r.c \
 			srcs/lists.c \
-			srcs/ft_list_swap.c
+			srcs/ft_list_swap.c \
+			srcs/sort.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -53,3 +53,26 @@ void							ft_printtime(struct stat st)
 	ft_putstr(date_time);
 	ft_putchar(' ');
 }
+
+void							ft_printType(t_files *tmp)
+{
+	if (S_ISDIR((tmp)->st_mode))
+		ft_foldercolorR((tmp)->name);
+	else if (((tmp)->st_mode > 0) && (S_IEXEC & (tmp)->st_mode))
+		ft_execcolorR((tmp)->name);
+	else if (S_ISREG((tmp)->st_mode))
+		ft_putendl((tmp)->name);
+	else
+		ft_putchar('\0');
+}
+
+void							ft_printR(t_files *tmp, t_flags flags)
+{
+	if (flags.l == TRUE)
+	{
+		ft_printpermissions(tmp->stat);
+		ft_printinfo(tmp->stat);
+		ft_printtime(tmp->stat);
+	}
+	ft_printType(tmp);
+}

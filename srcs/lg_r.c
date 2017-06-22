@@ -44,29 +44,6 @@ void							ft_list_b(t_files *files, char *curr_dir, t_flags flags)
 	ft_is_directory(tmp, curr_dir, flags);
 }
 
-void							ft_printType(t_files *tmp)
-{
-	if (S_ISDIR((tmp)->st_mode))
-		ft_foldercolorR((tmp)->name);
-	else if (((tmp)->st_mode > 0) && (S_IEXEC & (tmp)->st_mode))
-		ft_execcolorR((tmp)->name);
-	else if (S_ISREG((tmp)->st_mode))
-		ft_putendl((tmp)->name);
-	else
-		ft_putchar('\0');
-}
-
-void							ft_printR(t_files *tmp, t_flags flags)
-{
-	if (flags.l == TRUE)
-	{
-		ft_printpermissions(tmp->stat);
-		ft_printinfo(tmp->stat);
-		ft_printtime(tmp->stat);
-	}
-	ft_printType(tmp);
-}
-
 t_files						*ft_list(char *curr_dir, t_flags flags)
 {
 	t_r						r;

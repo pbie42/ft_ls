@@ -100,6 +100,7 @@ void							ft_printpermissions(struct stat st);
 void							ft_printinfo(struct stat st);
 void							ft_printtime(struct stat st);
 void							ft_printR(t_files *tmp, t_flags flags);
+void							ft_printType(t_files *tmp);
 void							ft_lpb(t_files **b_lst, struct dirent *dptr, char *pwd);
 int							ft_pwdcheck(char *curr_dir);
 int							ft_dircheck(DIR *dp);
@@ -107,7 +108,9 @@ t_files						*ft_list(char *curr_dir, t_flags flags);
 t_files						*ft_listnew(struct dirent *ent, char *path);
 char							*make_path_fl(char *dir, char *file);
 void							ft_list_swap(t_files **head, t_files **a, t_files **b);
-void 							insertionSort(t_files **head, t_flags flags);
+void							insertionSort(t_files **head, t_flags flags);
+void							sortedInsert(t_files** head, t_files* new_node);
+void							sortedInsertTime(t_files** head, t_files* new_node);
 t_files						*reverse_lst(t_files *head);
 
 #endif
