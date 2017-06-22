@@ -12,44 +12,6 @@
 
 #include "ft_ls.h"
 
-void			ft_foldercolor(char **ptr, int count)
-{
-	ft_putstr(CYAN);
-	ft_putstr(ptr[count]);
-	ft_putstr(STOP);
-	ft_putchar('\n');
-}
-
-void			ft_execcolor(char **ptr, int count)
-{
-	ft_putstr(MAGENTA);
-	ft_putstr(ptr[count]);
-	ft_putstr(STOP);
-	ft_putchar('\n');
-}
-
-void			ft_foldercolornorm(char **ptr, int count)
-{
-	ft_putstr(CYAN);
-	ft_putstr(ptr[count]);
-	ft_putstr(STOP);
-	ft_putstr("   ");
-}
-
-void			ft_execcolornorm(char **ptr, int count)
-{
-	ft_putstr(MAGENTA);
-	ft_putstr(ptr[count]);
-	ft_putstr(STOP);
-	ft_putstr("   ");
-}
-
-void			ft_normcolornorm(char **ptr, int count)
-{
-	ft_putstr(ptr[count]);
-	ft_putstr("   ");
-}
-
 void			ft_foldercolorR(char *ptr)
 {
 	ft_putstr(CYAN);

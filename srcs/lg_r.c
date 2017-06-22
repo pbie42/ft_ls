@@ -12,30 +12,36 @@
 
 #include "ft_ls.h"
 
+void							ft_is_directory(t_files *tmp, char *curr_dir, t_flags flags)
+{
+	char						*newPath;
+
+	if (S_ISDIR((tmp)->st_mode))
+	{
+		if (((tmp)->name[0] == '.'
+		&& ft_strcmp((tmp)->name, ".") != 0
+		&& ft_strcmp((tmp)->name, "..") != 0)
+		|| (tmp)->name[0] != '.')
+		{
+			newPath = make_path_fl(curr_dir, (tmp)->name);
+			ft_putchar('\n');
+			ft_putendl(newPath);
+			(tmp)->sub_dir = ft_list(newPath, flags);
+		}
+	}
+}
+
 void							ft_list_b(t_files *files, char *curr_dir, t_flags flags)
 {
 	t_files					*tmp;
-	char						*newPath;
 
 	tmp = files;
 	while (tmp->next)
 	{
-		// ft_putendl("this happening?");
-		if (S_ISDIR((tmp)->st_mode))
-		{
-			if (((tmp)->name[0] == '.'
-			&& ft_strcmp((tmp)->name, ".") != 0
-			&& ft_strcmp((tmp)->name, "..") != 0)
-			|| (tmp)->name[0] != '.')
-			{
-				newPath = make_path_fl(curr_dir, (tmp)->name);
-				ft_putchar('\n');
-				ft_putendl(newPath);
-				(tmp)->sub_dir = ft_list(newPath, flags);
-			}
-		}
+		ft_is_directory(tmp, curr_dir, flags);
 		tmp = tmp->next;
 	}
+	ft_is_directory(tmp, curr_dir, flags);
 }
 
 void							ft_printType(t_files *tmp)
@@ -85,6 +91,8 @@ t_files						*ft_list(char *curr_dir, t_flags flags)
 		tmp = reverse_lst(tmp);
 		tmp2 = tmp;
 	}
+	else if (flags.t)
+		tmp2 = tmp;
 	else
 		tmp2 = r.files;
 	while (tmp->next)

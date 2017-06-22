@@ -88,11 +88,6 @@ typedef struct				s_r
 	t_files					*files;
 }								t_r;
 
-void							ft_foldercolor(char **ptr, int count);
-void							ft_execcolor(char **ptr, int count);
-void							ft_foldercolornorm(char **ptr, int count);
-void							ft_execcolornorm(char **ptr, int count);
-void							ft_normcolornorm(char **ptr, int count);
 void							ft_foldercolorR(char *ptr);
 void							ft_execcolorR(char *ptr);
 void							ft_foldercolornormR(char *ptr);
