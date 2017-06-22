@@ -17,10 +17,8 @@ CFLAGS = -g -Wall -Werror -Wextra -I includes
 SRC = srcs/main.c \
 			srcs/printcolor.c \
 			srcs/checks.c \
-			srcs/setup.c \
 			srcs/flags.c \
 			srcs/path.c \
-			srcs/alphaspace.c \
 			srcs/print.c \
 			srcs/printpermissions.c \
 			srcs/lg_r.c \
