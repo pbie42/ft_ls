@@ -62,18 +62,18 @@ int									main(int ac, char **av)
 	if (ac > 1 && av[1][0] == '-')
 		ft_find_flags(av, &m.f);
 	// // ioctl(STDOUT_FILENO, TIOCGWINSZ, &m.w); // This should be returning into something
-	if (m.f.lg_r == FALSE)
-	{
-		if (ft_pwd(&m) == -1)
-			return (-1);
-		if (ft_num_file_check(&m) == -1)
-			return (-1);
-		ft_ptrfill(&m);
-		ft_alphastrsort(&m);
-		ft_print(m);
-	}
+	// if (m.f.lg_r == FALSE)
+	// {
+	// 	if (ft_pwd(&m) == -1)
+	// 		return (-1);
+	// 	if (ft_num_file_check(&m) == -1)
+	// 		return (-1);
+	// 	ft_ptrfill(&m);
+	// 	ft_alphastrsort(&m);
+	// 	ft_print(m);
+	// }
 	pwd = getenv("PWD");
-	if (m.f.lg_r == TRUE)
-		ft_list(pwd, m.f);
+	// if (m.f.lg_r == TRUE)
+	ft_list(pwd, m.f);
 	return (0);
 }

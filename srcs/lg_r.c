@@ -79,7 +79,7 @@ t_files						*ft_list(char *curr_dir, t_flags flags)
 	while((r.dptr = readdir(r.ds)))
 		ft_lpb(&r.files, r.dptr, curr_dir);
 	tmp = r.files;
-	insertionSort(&tmp);
+	insertionSort(&tmp, flags);
 	if (flags.sm_r == TRUE)
 	{
 		tmp = reverse_lst(tmp);
@@ -93,7 +93,8 @@ t_files						*ft_list(char *curr_dir, t_flags flags)
 		tmp = tmp->next;
 	}
 	ft_printR(tmp, flags);
-	ft_list_b(tmp2, curr_dir, flags);
+	if (flags.lg_r == TRUE)
+		ft_list_b(tmp2, curr_dir, flags);
 	free(tmp);
 	return r.files;
 }

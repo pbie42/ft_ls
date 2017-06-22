@@ -50,9 +50,29 @@ void							ft_alphastrsort(t_main *m)
 	}
 }
 
-// void							ft_lst_alpha(t_files *head)
-// {
-// 	t_files					*x
-// 	t_files					*y
+void							ft_time_sort(t_main *m)
+{
+	int						i;
+	int						j;
 
-// }
+	i = 0;
+	while (i < m->num_files - 1)
+	{
+		j = i + 1;
+		while (j < m->num_files)
+		{
+			if (m->f.sm_r == TRUE && m->f.lg_r == FALSE)
+			{
+				if (ft_strcmp(m->ptr[i], m->ptr[j]) < 0)
+					ft_alphastrsortbis(m, i, j);
+			}
+			else
+			{
+				if (ft_strcmp(m->ptr[i], m->ptr[j]) > 0)
+					ft_alphastrsortbis(m, i, j);
+			}
+			j++;
+		}
+		i++;
+	}
+}

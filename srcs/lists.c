@@ -57,6 +57,25 @@ t_files					*ft_listnew(struct dirent *dptr, char *path)
 	return (alist);
 }
 
+t_files					*reverse_lst(t_files *head)
+{
+	t_files				*curr;
+	t_files				*prev;
+	t_files				*next;
+
+	curr = head;
+	prev = NULL;
+	while (curr)
+	{
+		next = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = next;
+	}
+	head = prev;
+	return head;
+}
+
 
 void						sortedInsert(t_files** head, t_files* new_node)
 {
@@ -81,26 +100,38 @@ void						sortedInsert(t_files** head, t_files* new_node)
 	}
 }
 
-t_files					*reverse_lst(t_files *head)
+void						sortedInsertTime(t_files** head, t_files* new_node)
 {
-	t_files				*curr;
-	t_files				*prev;
-	t_files				*next;
+	t_files				*current;
 
-	curr = head;
-	prev = NULL;
-	while (curr)
+	if (*head == NULL || (*head)->mtime - new_node->mtime < 0)
 	{
-		next = curr->next;
-		curr->next = prev;
-		prev = curr;
-		curr = next;
+		new_node->next = *head;
+		*head = new_node;
 	}
-	head = prev;
-	return head;
+	else
+	{
+		/* Locate the node before the point of insertion */
+		current = *head;
+		while (current->next != NULL
+				&& current->next->mtime - new_node->mtime > 0)
+		{
+				current = current->next;
+		}
+		if (current->next != NULL && current->next->mtime - new_node->mtime == 0)
+		{
+			ft_putendl("same bruh");
+			ft_putendl(current->next->name);
+			ft_putendl(new_node->name);
+			ft_putnbr(ft_strcmp(current->next->name, new_node->name));
+			ft_putchar('\n');
+		}
+		new_node->next = current->next;
+		current->next = new_node;
+	}
 }
 
-void						insertionSort(t_files **head)
+void						insertionSort(t_files **head, t_flags flags)
 {
 	t_files				*sorted;
 	t_files				*current;
@@ -111,7 +142,10 @@ void						insertionSort(t_files **head)
 	while (current != NULL)
 	{
 		next = current->next;
-		sortedInsert(&sorted, current);
+		if (flags.t == TRUE)
+			sortedInsertTime(&sorted, current);
+		else
+			sortedInsert(&sorted, current);
 		current = next;
 	}
 	*head = sorted;
