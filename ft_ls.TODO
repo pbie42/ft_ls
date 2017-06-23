@@ -22,6 +22,6 @@ ft_ls:
 			f:
 				✔ Does not organize files in directory. -r does nothing to it @done (6/22/2017, 7:24:55 PM)
 			g:
-				☐ Same as -l but without file owner name
+				✔ Same as -l but without file owner name @done (6/23/2017, 11:29:50 AM)
 	Output:
 		☐ properly space when using -la

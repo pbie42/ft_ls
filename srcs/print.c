@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-void							ft_printinfo(struct stat st)
+void							ft_printinfo(struct stat st, t_flags flags)
 {
 	struct passwd		*pt;
 	struct group		*p;
@@ -21,9 +21,12 @@ void							ft_printinfo(struct stat st)
 	ft_putnbr((int)st.st_nlink);
 	ft_putchar(' ');
 	//Get the user name
-	pt = getpwuid(st.st_uid);
-	ft_putstr(pt->pw_name);
-	ft_putchar(' ');
+	if (flags.g == FALSE)
+	{
+		pt = getpwuid(st.st_uid);
+		ft_putstr(pt->pw_name);
+		ft_putchar(' ');
+	}
 	//Get the group name
 	p = getgrgid(st.st_gid);
 	ft_putstr(p->gr_name);
@@ -71,7 +74,7 @@ void							ft_printR(t_files *tmp, t_flags flags)
 	if (flags.l == TRUE)
 	{
 		ft_printpermissions(tmp->stat);
-		ft_printinfo(tmp->stat);
+		ft_printinfo(tmp->stat, flags);
 		ft_printtime(tmp->stat);
 	}
 	ft_printType(tmp);
