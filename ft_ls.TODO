@@ -6,6 +6,9 @@ ft_ls:
 	✔ If -R is given with -r make sure files stay in alpha order within folders but folder order is reversed @done (6/23/2017, 11:41:16 AM)
 		✔ For the moment files do not reverse if -R is with -r. Need to expand on this later (alphaspace.c) @done (6/23/2017, 11:41:15 AM)
 	☐ Need to allow the user to select the directories they would like to have searched @critical
+	Selected Files:
+		☐ Test all flags with selected files against real ls to make sure they display properly
+		☐ Need to make sure that any fake files need to be displayed first with the error message before showing the rest
 	Flags:
 		R/without:
 			✔ -R for recursion @high @done (6/5/2017, 3:23:08 PM)

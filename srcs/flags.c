@@ -28,7 +28,6 @@ void							ft_which_flags(char *flags, t_flags *f)
 {
 	int						x;
 
-	// ft_init_flags(f);
 	x = 1;
 	while (flags[x] != '\0')
 	{
@@ -63,12 +62,14 @@ void							ft_which_flags(char *flags, t_flags *f)
 	}
 }
 
-void							ft_find_flags(char **av, t_flags *f)
+int							ft_find_flags(char **av, t_flags *f)
 {
 	t_bool					flag;
-	int							x;
+	int						x;
+	int						y;
 
 	x = 1;
+	y = 0;
 	flag = TRUE;
 	while (av[x] != NULL)
 	{
@@ -84,6 +85,9 @@ void							ft_find_flags(char **av, t_flags *f)
 		}
 		else
 			flag = FALSE;
+		if (av[x][0] != '-')
+			y++;
 		x++;
 	}
+	return (y);
 }

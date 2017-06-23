@@ -99,7 +99,7 @@ void							ft_execcolornormR(char *ptr);
 void							ft_normcolornormR(char *ptr);
 void							ft_init_flags(t_flags *f);
 void							ft_which_flags(char *ops, t_flags *f);
-void							ft_find_flags(char **options, t_flags *f);
+int							ft_find_flags(char **options, t_flags *f);
 void							ft_printpermissions(struct stat st);
 void							ft_printinfo(struct stat st, t_flags flags);
 void							ft_printtime(struct stat st, t_flags flags);
