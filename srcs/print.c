@@ -36,14 +36,17 @@ void							ft_printinfo(struct stat st, t_flags flags)
 	ft_putchar(' ');
 }
 
-void							ft_printtime(struct stat st)
+void							ft_printtime(struct stat st, t_flags flags)
 {
 	int						c;
 	char						date_time[100];
 
 	//Get the date and time. We will have to remove the trailing newline.
 	ft_memset(date_time, 0, sizeof(date_time));
-	ft_strncpy(date_time, ctime(&st.st_mtime), sizeof(date_time));
+	if (flags.u == TRUE)
+		ft_strncpy(date_time, ctime(&st.st_atime), sizeof(date_time));
+	else
+		ft_strncpy(date_time, ctime(&st.st_mtime), sizeof(date_time));
 	c = 0;
 	while (date_time[c] != '\0')
 	{
@@ -75,7 +78,7 @@ void							ft_printR(t_files *tmp, t_flags flags)
 	{
 		ft_printpermissions(tmp->stat);
 		ft_printinfo(tmp->stat, flags);
-		ft_printtime(tmp->stat);
+		ft_printtime(tmp->stat, flags);
 	}
 	ft_printType(tmp);
 }

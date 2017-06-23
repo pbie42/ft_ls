@@ -62,6 +62,7 @@ typedef struct				s_files
 	struct s_files			*sub_dir;
 	struct stat				stat;
 	time_t					mtime;
+	time_t					atime;
 	mode_t					st_mode;
 	nlink_t					st_nlink;
 	uid_t						st_uid;
@@ -81,6 +82,7 @@ typedef struct				s_flags
 	t_bool					lg_r;
 	t_bool					f;
 	t_bool					g;
+	t_bool					u;
 }								t_flags;
 
 typedef struct				s_r
@@ -100,7 +102,7 @@ void							ft_which_flags(char *ops, t_flags *f);
 void							ft_find_flags(char **options, t_flags *f);
 void							ft_printpermissions(struct stat st);
 void							ft_printinfo(struct stat st, t_flags flags);
-void							ft_printtime(struct stat st);
+void							ft_printtime(struct stat st, t_flags flags);
 void							ft_printR(t_files *tmp, t_flags flags);
 void							ft_printType(t_files *tmp);
 void							ft_lpb(t_files **b_lst, struct dirent *dptr, char *pwd);

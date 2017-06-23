@@ -75,6 +75,46 @@ void						sortedInsertTime(t_files** head, t_files* new_node)
 	}
 }
 
+void						sortedAccessTime(t_files** head, t_files* new_node)
+{
+	t_files				*current;
+
+	if (*head == NULL || (*head)->atime - new_node->atime < 0)
+	{
+		new_node->next = *head;
+		*head = new_node;
+	}
+	else
+	{
+		current = *head;
+		while (current->next != NULL
+				&& current->next->atime - new_node->atime > 0)
+			current = current->next;
+		if (current->next != NULL && current->next->atime - new_node->atime == 0)
+		{
+			if (ft_strcmp(current->next->name, new_node->name) > 0)
+			{
+				new_node->next = current->next;
+				current->next = new_node;
+			}
+			else
+			{
+				while (current->next != NULL
+						&& ft_strcmp(current->next->name, new_node->name) < 0
+						&& current->next->atime - new_node->atime == 0)
+					current = current->next;
+				new_node->next = current->next;
+				current->next = new_node;
+			}
+		}
+		else
+		{
+			new_node->next = current->next;
+			current->next = new_node;
+		}
+	}
+}
+
 void						insertionSort(t_files **head, t_flags flags)
 {
 	t_files				*sorted;
@@ -86,7 +126,9 @@ void						insertionSort(t_files **head, t_flags flags)
 	while (current != NULL)
 	{
 		next = current->next;
-		if (flags.t == TRUE)
+		if (flags.t == TRUE && flags.u == TRUE)
+			sortedAccessTime(&sorted, current);
+		else if (flags.t == TRUE)
 			sortedInsertTime(&sorted, current);
 		else
 			sortedInsert(&sorted, current);

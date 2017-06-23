@@ -21,6 +21,7 @@ void							ft_init_flags(t_flags *f)
 	f->lg_r = FALSE;
 	f->f = FALSE;
 	f->g = FALSE;
+	f->u = FALSE;
 }
 
 void							ft_which_flags(char *flags, t_flags *f)
@@ -43,6 +44,8 @@ void							ft_which_flags(char *flags, t_flags *f)
 			f->lg_r = TRUE;
 		else if (flags[x] == 'g')
 			f->g = TRUE;
+		else if (flags[x] == 'u')
+			f->u = TRUE;
 		else if (flags[x] == 'f')
 		{
 			f->f = TRUE;

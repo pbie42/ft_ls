@@ -3,8 +3,8 @@ ft_ls:
 		✔ Check if a file is a directory and if it is then go further. @done (6/5/2017, 3:23:21 PM)
 	☐ If no flag given check to see if it's a directory and if not send error ls: l: No such file or directory
 	☐ If no flags are given and no second argument need files to output horizontally
-	☐ If -R is given with -r make sure files stay in alpha order within folders but folder order is reversed
-		☐ For the moment files do not reverse if -R is with -r. Need to expand on this later (alphaspace.c)
+	✔ If -R is given with -r make sure files stay in alpha order within folders but folder order is reversed @done (6/23/2017, 11:41:16 AM)
+		✔ For the moment files do not reverse if -R is with -r. Need to expand on this later (alphaspace.c) @done (6/23/2017, 11:41:15 AM)
 	☐ Need to allow the user to select the directories they would like to have searched @critical
 	Flags:
 		R/without:
@@ -23,5 +23,9 @@ ft_ls:
 				✔ Does not organize files in directory. -r does nothing to it @done (6/22/2017, 7:24:55 PM)
 			g:
 				✔ Same as -l but without file owner name @done (6/23/2017, 11:29:50 AM)
+			u:
+				☐ with -lt: sort by, and show, access time with -l: show access time and sort by name otherwise: sort by access time
+			d:
+				☐ 
 	Output:
 		☐ properly space when using -la
