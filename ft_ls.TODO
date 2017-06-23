@@ -24,7 +24,7 @@ ft_ls:
 			g:
 				✔ Same as -l but without file owner name @done (6/23/2017, 11:29:50 AM)
 			u:
-				☐ with -lt: sort by, and show, access time with -l: show access time and sort by name otherwise: sort by access time
+				✔ with -lt: sort by, and show, access time with -l: show access time and sort by name otherwise: sort by access time @done (6/23/2017, 11:54:47 AM)
 			d:
 				☐ 
 	Output:
