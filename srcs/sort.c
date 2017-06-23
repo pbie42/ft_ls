@@ -80,7 +80,7 @@ void						insertionSort(t_files **head, t_flags flags)
 	t_files				*sorted;
 	t_files				*current;
 	t_files				*next;
-	
+
 	sorted = NULL;
 	current = *head;
 	while (current != NULL)

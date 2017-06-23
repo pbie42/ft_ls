@@ -41,7 +41,10 @@ void							ft_which_flags(char *flags, t_flags *f)
 		else if (flags[x] == 'R')
 			f->lg_r = TRUE;
 		else if (flags[x] == 'f')
+		{
 			f->f = TRUE;
+			f->a = TRUE;
+		}
 		else
 		{
 			ft_putstr("ls: illegal option -- ");
