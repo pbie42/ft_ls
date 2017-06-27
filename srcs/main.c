@@ -133,56 +133,105 @@ t_files					*ft_list_single(char *path, char *name)
 	return (alist);
 }
 
-void									ft_selected(char *pwd, char **av, t_flags flags)
+void						ft_selected(char *pwd, char **av, t_flags flags, int start)
 {
-	// char								**selected;
-	char								*nw_path;
-	struct stat						fstat;
-	int								x;
-	t_files							*file;
+	int					x;
+	char					*nw_path;
+	t_files				*file;
+	t_files				*tmp;
+	t_files				*tmp2;
+	struct stat			fstat;
 
-	x = 1;
+	x = start;
+	file = ft_list_single(pwd, av[x++]);
+	tmp = file;
 	while (av[x] != NULL)
 	{
-		nw_path = make_path_fl(pwd, av[x]);
-		if(av[x][0] != '-')
+		file->next = ft_list_single(pwd, av[x]);
+		file = file->next;
+		x++;
+	}
+	if (flags.f == FALSE)
+		insertionSort(&tmp, flags);
+	tmp2 = tmp;
+	while (tmp2->next)
+	{
+		nw_path = make_path_fl(pwd, tmp2->name);
+		if (lstat(nw_path, &fstat) < 0)
 		{
-			if (lstat(nw_path, &fstat) < 0)
+			ft_putstr("ls: ");
+			ft_putstr(tmp2->name);
+			ft_putendl(": No such file or directory");
+		}
+		if (!S_ISDIR(tmp2->st_mode))
+			ft_printR(tmp2, flags);
+		tmp2 = tmp2->next;
+	}
+	nw_path = make_path_fl(pwd, tmp2->name);
+	if (lstat(nw_path, &fstat) < 0)
+	{
+		ft_putstr("ls: ");
+		ft_putstr(tmp2->name);
+		ft_putendl(": No such file or directory");
+	}
+	if (!S_ISDIR(tmp2->st_mode))
+		ft_printR(tmp2, flags);
+	while (tmp->next)
+	{
+		nw_path = make_path_fl(pwd, tmp->name);
+		if (lstat(nw_path, &fstat) < 0)
+		{
+			ft_putstr("ls: ");
+			ft_putstr(tmp->name);
+			ft_putendl(": No such file or directory");
+		}
+		else
+		{
+			if (S_ISDIR(tmp->st_mode))
 			{
-				ft_putstr("ls: ");
-				ft_putstr(av[x]);
-				ft_putendl(": No such file or directory");
-			}
-			else
-			{
-				file = ft_list_single(pwd, av[x]);
-				if (S_ISDIR((file)->st_mode))
-				{
-					ft_putchar('\n');
-					ft_putendl(nw_path);
-					ft_list(nw_path, flags);
-				}
-				else
-					ft_printR(file, flags);
+				ft_putchar('\n');
+				ft_putendl(nw_path);
+				ft_list(nw_path, flags);
 			}
 		}
-		x++;
+		tmp = tmp->next;
+	}
+	nw_path = make_path_fl(pwd, tmp->name);
+	if (lstat(nw_path, &fstat) < 0)
+	{
+		ft_putstr("ls: ");
+		ft_putstr(tmp->name);
+		ft_putendl(": No such file or directory");
+	}
+	else
+	{
+		if (S_ISDIR(tmp->st_mode))
+		{
+			ft_putchar('\n');
+			ft_putendl(nw_path);
+			ft_list(nw_path, flags);
+		}
 	}
 }
 
-int									main(int ac, char **av)
+int						main(int ac, char **av)
 {
-	t_flags							flags;
-	char								*pwd;
-	int								selected;
+	t_flags				flags;
+	char					*pwd;
+	t_start				start;
 
-	selected = 0;
 	ft_init_flags(&flags);
 	pwd = getenv("PWD");
 	if (ac > 1)
-		selected = ft_find_flags(av, &flags);
-	if (selected != 0)
-		ft_selected(pwd, av, flags);
+		start = ft_find_flags(av, &flags);
+	ft_putstr("selected: ");
+	ft_putnbr(start.selected);
+	ft_putchar('\n');
+	ft_putstr("start: ");
+	ft_putnbr(start.start);
+	ft_putchar('\n');
+	if (start.selected != 0)
+		ft_selected(pwd, av, flags, start.start);
 	else
 		ft_list(pwd, flags);
 	return (0);

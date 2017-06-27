@@ -62,21 +62,25 @@ void							ft_which_flags(char *flags, t_flags *f)
 	}
 }
 
-int							ft_find_flags(char **av, t_flags *f)
+t_start						ft_find_flags(char **av, t_flags *f)
 {
 	t_bool					flag;
 	int						x;
-	int						y;
+	t_start					start;
 
 	x = 1;
-	y = 0;
+	start.selected = 0;
+	start.start = 1;
 	flag = TRUE;
 	while (av[x] != NULL)
 	{
 		if (av[x][0] == '-' && flag == TRUE)
 			ft_which_flags(av[x], f);
 		else if (av[x][0] != '-' && flag == TRUE)
+		{
 			flag = FALSE;
+			start.start = x;
+		}
 		else if (av[x][0] == '-' && flag == FALSE)
 		{
 			ft_putstr("ls: ");
@@ -86,8 +90,8 @@ int							ft_find_flags(char **av, t_flags *f)
 		else
 			flag = FALSE;
 		if (av[x][0] != '-')
-			y++;
+			start.selected++;
 		x++;
 	}
-	return (y);
+	return (start);
 }
