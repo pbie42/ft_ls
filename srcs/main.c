@@ -133,26 +133,14 @@ t_files					*ft_list_single(char *path, char *name)
 	return (alist);
 }
 
-void									ft_selected(char *pwd, char **av, int y, t_flags flags)
+void									ft_selected(char *pwd, char **av, t_flags flags)
 {
-	char								**selected;
+	// char								**selected;
 	char								*nw_path;
 	struct stat						fstat;
 	int								x;
-	size_t							l;
 	t_files							*file;
 
-	selected = ft_ptr_malloc(y);
-	x = 1;
-	while (av[x] != NULL)
-	{
-		if (av[x][0] != '-')
-		{
-			l = ft_strlen(av[x]) + 1;
-			selected[x] = ft_strndup(av[x], l);
-		}
-		x++;
-	}
 	x = 1;
 	while (av[x] != NULL)
 	{
@@ -167,17 +155,15 @@ void									ft_selected(char *pwd, char **av, int y, t_flags flags)
 			}
 			else
 			{
-				ft_putchar('\n');
-				ft_putendl(nw_path);
 				file = ft_list_single(pwd, av[x]);
 				if (S_ISDIR((file)->st_mode))
 				{
+					ft_putchar('\n');
+					ft_putendl(nw_path);
 					ft_list(nw_path, flags);
 				}
 				else
-				{
 					ft_printR(file, flags);
-				}
 			}
 		}
 		x++;
@@ -195,21 +181,9 @@ int									main(int ac, char **av)
 	pwd = getenv("PWD");
 	if (ac > 1)
 		selected = ft_find_flags(av, &flags);
-	ft_putnbr(selected);
 	if (selected != 0)
-		ft_selected(pwd, av, selected, flags);
+		ft_selected(pwd, av, flags);
 	else
 		ft_list(pwd, flags);
-	// // ioctl(STDOUT_FILENO, TIOCGWINSZ, &m.w); // This should be returning into something
-	// if (m.f.lg_r == FALSE)
-	// {
-	// 	if (ft_pwd(&m) == -1)
-	// 		return (-1);
-	// 	if (ft_num_file_check(&m) == -1)
-	// 		return (-1);
-	// 	ft_ptrfill(&m);
-	// 	ft_alphastrsort(&m);
-	// 	ft_print(m);
-	// }
 	return (0);
 }
