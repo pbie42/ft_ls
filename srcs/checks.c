@@ -36,3 +36,11 @@ int								ft_dircheck(DIR *ds)
 	else
 		return (0);
 }
+
+void								*ft_select_check(char *name)
+{
+	ft_putstr("ls: ");
+	ft_putstr(name);
+	ft_putendl(": No such file or directory");
+	return (NULL);
+}

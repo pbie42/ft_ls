@@ -122,5 +122,7 @@ void							insertionSort(t_files **head, t_flags flags);
 void							sortedInsert(t_files** head, t_files* new_node);
 void							sortedInsertTime(t_files** head, t_files* new_node);
 t_files						*reverse_lst(t_files *head);
+void							ft_select(char *pwd, char **av, t_flags flags, int start);
+void							*ft_select_check(char *name);
 
 #endif
