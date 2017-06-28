@@ -22,7 +22,7 @@ void			ft_foldercolorR(char *ptr)
 
 void			ft_execcolorR(char *ptr)
 {
-	ft_putstr(MAGENTA);
+	ft_putstr(RED);
 	ft_putstr(ptr);
 	ft_putstr(STOP);
 	ft_putchar('\n');
@@ -38,10 +38,18 @@ void			ft_foldercolornormR(char *ptr)
 
 void			ft_execcolornormR(char *ptr)
 {
-	ft_putstr(MAGENTA);
+	ft_putstr(RED);
 	ft_putstr(ptr);
 	ft_putstr(STOP);
 	ft_putstr("   ");
+}
+
+void			ft_symlinkcolor(char *ptr)
+{
+	ft_putstr(MAGENTA);
+	ft_putstr(ptr);
+	ft_putstr(STOP);
+	ft_putchar('\n');
 }
 
 void			ft_normcolornormR(char *ptr)

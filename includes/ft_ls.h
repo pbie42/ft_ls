@@ -103,6 +103,7 @@ void							ft_execcolorR(char *ptr);
 void							ft_foldercolornormR(char *ptr);
 void							ft_execcolornormR(char *ptr);
 void							ft_normcolornormR(char *ptr);
+void							ft_symlinkcolor(char *ptr);
 void							ft_init_flags(t_flags *f);
 void							ft_which_flags(char *ops, t_flags *f);
 t_start						ft_find_flags(char **options, t_flags *f);

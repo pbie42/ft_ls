@@ -64,6 +64,8 @@ void							ft_printType(t_files *tmp)
 {
 	if (S_ISDIR((tmp)->st_mode))
 		ft_foldercolorR((tmp)->name);
+	else if (S_ISLNK((tmp)->st_mode))
+		ft_symlinkcolor((tmp)->name);
 	else if (((tmp)->st_mode > 0) && (S_IEXEC & (tmp)->st_mode))
 		ft_execcolorR((tmp)->name);
 	else if (S_ISREG((tmp)->st_mode))
