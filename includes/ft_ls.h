@@ -133,6 +133,8 @@ void							*ft_select_check(char *name);
 void							ft_symlink_path(t_files *file, char *path, t_flags f);
 void							ft_is_directory(t_files *tmp, char *curr_dir, t_flags f);
 void							ft_block(char *curr_dir, t_flags flags);
+void							sortedAccessTime(t_files** head, t_files* new_node);
+void							sortedInsertTime(t_files** head, t_files* new_node);
 char							*make_path_fl(char *dir, char *file);
 t_start						ft_find_flags(char **options, t_flags *f);
 t_files						*ft_listnew(struct dirent *ent, char *path, t_flags flags);

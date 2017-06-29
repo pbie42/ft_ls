@@ -12,11 +12,14 @@
 
 #include "ft_ls.h"
 
-void							ft_print_block(int block)
+void							ft_print_block(int block, t_flags flags)
 {
-	ft_putstr("total ");
-	ft_putnbr(block);
-	ft_putchar('\n');
+	if (flags.l == TRUE)
+	{
+		ft_putstr("total ");
+		ft_putnbr(block);
+		ft_putchar('\n');
+	}
 }
 
 void							ft_block(char *curr_dir, t_flags flags)
@@ -45,5 +48,5 @@ void							ft_block(char *curr_dir, t_flags flags)
 		}
 	}
 	block += (int)r.files->st_blocks;
-	ft_print_block(block);
+	ft_print_block(block, flags);
 }
