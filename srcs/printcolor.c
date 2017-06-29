@@ -44,11 +44,13 @@ void			ft_execcolornormR(char *ptr)
 	ft_putstr("   ");
 }
 
-void			ft_symlinkcolor(char *ptr)
+void			ft_symlinkcolor(t_files *file, t_flags flags)
 {
 	ft_putstr(MAGENTA);
-	ft_putstr(ptr);
+	ft_putstr(file->name);
 	ft_putstr(STOP);
+	if (flags.l == TRUE)
+		ft_putstr(file->link);
 	ft_putchar('\n');
 }
 

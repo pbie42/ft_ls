@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-t_files					*ft_list_single(char *path, char *name)
+t_files					*ft_list_single(char *path, char *name, t_flags flags)
 {
 	t_files				*alist;
 	struct stat			fstat;
@@ -37,6 +37,8 @@ t_files					*ft_list_single(char *path, char *name)
 	alist->st_ino = fstat.st_ino;
 	alist->st_blocks = fstat.st_blocks;
 	alist->name = ft_strdup(name);
+	if (S_ISLNK((alist)->st_mode))
+		ft_symlink_path(alist, nw_path, flags);
 	return (alist);
 }
 
@@ -79,18 +81,18 @@ void						ft_select_ter(t_files *tmp, char *pwd, t_flags flags)
 	}
 }
 
-t_files					*ft_select_setup(char **av, t_files *file, char *pwd, int x)
+t_files					*ft_select_setup(char **av, t_files *file, char *pwd, int x, t_flags flags)
 {
 	t_files				*tmp;
 	t_files				*tmp2;
 
 	tmp = NULL;
 	if (file == NULL && av[x] != NULL)
-		file = ft_list_single(pwd, av[x++]);
+		file = ft_list_single(pwd, av[x++], flags);
 	tmp = file;
 	while (av[x] != NULL)
 	{
-		tmp2 = ft_list_single(pwd, av[x]);
+		tmp2 = ft_list_single(pwd, av[x], flags);
 		if (tmp2 != NULL)
 		{
 			file->next = tmp2;
@@ -107,8 +109,8 @@ void						ft_select(char *pwd, char **av, t_flags flags, int start)
 	t_files				*tmp;
 	t_files				*tmp2;
 
-	file = ft_list_single(pwd, av[start++]);
-	if ((tmp = ft_select_setup(av, file, pwd, start)) == NULL)
+	file = ft_list_single(pwd, av[start++], flags);
+	if ((tmp = ft_select_setup(av, file, pwd, start, flags)) == NULL)
 		ft_exit(NULL);
 	if (flags.f == FALSE)
 		insertionSort(&tmp, flags);

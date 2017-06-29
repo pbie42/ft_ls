@@ -57,10 +57,10 @@ t_files						*ft_list(char *curr_dir, t_flags flags)
 	if(!flags.a)
 		while((r.dptr = readdir(r.ds)) && r.dptr->d_name[0] == '.')
 			ft_putchar('\0');
-	if(!(r.files = ft_listnew(r.dptr, curr_dir)))
+	if(!(r.files = ft_listnew(r.dptr, curr_dir, flags)))
 		return (NULL);
 	while((r.dptr = readdir(r.ds)))
-		ft_lpb(&r.files, r.dptr, curr_dir);
+		ft_lpb(&r.files, r.dptr, curr_dir, flags);
 	tmp = r.files;
 	if (flags.f == FALSE)
 		insertionSort(&tmp, flags);

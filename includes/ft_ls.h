@@ -58,6 +58,7 @@ typedef int					t_bool;
 typedef struct				s_files
 {
 	char						*name;
+	char						*link;
 	struct s_files			*next;
 	struct s_files			*sub_dir;
 	struct stat				stat;
@@ -103,7 +104,7 @@ void							ft_execcolorR(char *ptr);
 void							ft_foldercolornormR(char *ptr);
 void							ft_execcolornormR(char *ptr);
 void							ft_normcolornormR(char *ptr);
-void							ft_symlinkcolor(char *ptr);
+void							ft_symlinkcolor(t_files *file, t_flags flags);
 void							ft_init_flags(t_flags *f);
 void							ft_which_flags(char *ops, t_flags *f);
 t_start						ft_find_flags(char **options, t_flags *f);
@@ -111,12 +112,10 @@ void							ft_printpermissions(struct stat st);
 void							ft_printinfo(struct stat st, t_flags flags);
 void							ft_printtime(struct stat st, t_flags flags);
 void							ft_printR(t_files *tmp, t_flags flags);
-void							ft_printType(t_files *tmp);
-void							ft_lpb(t_files **b_lst, struct dirent *dptr, char *pwd);
-int							ft_pwdcheck(char *curr_dir);
-int							ft_dircheck(DIR *dp);
+void							ft_printType(t_files *tmp, t_flags flags);
+void							ft_lpb(t_files **b_lst, struct dirent *dptr, char *pwd, t_flags flags);
 t_files						*ft_list(char *curr_dir, t_flags flags);
-t_files						*ft_listnew(struct dirent *ent, char *path);
+t_files						*ft_listnew(struct dirent *ent, char *path, t_flags flags);
 char							*make_path_fl(char *dir, char *file);
 void							ft_list_swap(t_files **head, t_files **a, t_files **b);
 void							insertionSort(t_files **head, t_flags flags);
@@ -125,5 +124,6 @@ void							sortedInsertTime(t_files** head, t_files* new_node);
 t_files						*reverse_lst(t_files *head);
 void							ft_select(char *pwd, char **av, t_flags flags, int start);
 void							*ft_select_check(char *name);
+void							ft_symlink_path(t_files *file, char *path, t_flags f);
 
 #endif

@@ -60,12 +60,12 @@ void							ft_printtime(struct stat st, t_flags flags)
 	ft_putchar(' ');
 }
 
-void							ft_printType(t_files *tmp)
+void							ft_printType(t_files *tmp, t_flags flags)
 {
 	if (S_ISDIR((tmp)->st_mode))
 		ft_foldercolorR((tmp)->name);
 	else if (S_ISLNK((tmp)->st_mode))
-		ft_symlinkcolor((tmp)->name);
+		ft_symlinkcolor(tmp, flags);
 	else if (((tmp)->st_mode > 0) && (S_IEXEC & (tmp)->st_mode))
 		ft_execcolorR((tmp)->name);
 	else if (S_ISREG((tmp)->st_mode))
@@ -82,5 +82,5 @@ void							ft_printR(t_files *tmp, t_flags flags)
 		ft_printinfo(tmp->stat, flags);
 		ft_printtime(tmp->stat, flags);
 	}
-	ft_printType(tmp);
+	ft_printType(tmp, flags);
 }
