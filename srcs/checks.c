@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-void								*ft_select_check(char *name)
+void							*ft_select_check(char *name)
 {
 	ft_putstr("ls: ");
 	ft_putstr(name);
@@ -20,12 +20,31 @@ void								*ft_select_check(char *name)
 	return (NULL);
 }
 
-void								ft_symlink_path(t_files *file, char *path, t_flags f)
+void						ft_is_directory(t_files *tmp, char *curr_dir, t_flags f)
 {
-	char							buf[1024];
-	ssize_t						link_size;
-	ssize_t						attr_size;
-	size_t						l;
+	char					*newPath;
+
+	if (S_ISDIR((tmp)->st_mode))
+	{
+		if (((tmp)->name[0] == '.'
+		&& ft_strcmp((tmp)->name, ".") != 0
+		&& ft_strcmp((tmp)->name, "..") != 0)
+		|| (tmp)->name[0] != '.')
+		{
+			newPath = make_path_fl(curr_dir, (tmp)->name);
+			ft_putchar('\n');
+			ft_putendl(newPath);
+			(tmp)->sub_dir = ft_list(newPath, f);
+		}
+	}
+}
+
+void						ft_symlink_path(t_files *file, char *path, t_flags f)
+{
+	char					buf[1024];
+	ssize_t				link_size;
+	ssize_t				attr_size;
+	size_t				l;
 
 	link_size = 0;
 	attr_size = 0;

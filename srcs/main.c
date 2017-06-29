@@ -16,15 +16,13 @@ int						main(int ac, char **av)
 {
 	t_flags				flags;
 	t_start				start;
-	char					*pwd;
 
 	ft_init_flags(&flags);
-	pwd = getenv("PWD");
 	if (ac > 1)
 		start = ft_find_flags(av, &flags);
 	if (start.selected != 0)
-		ft_select(pwd, av, flags, start.start);
+		ft_select(".", av, flags, start.start);
 	else
-		ft_list(pwd, flags);
+		ft_list(".", flags);
 	return (0);
 }

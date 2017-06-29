@@ -28,22 +28,6 @@ void			ft_execcolorR(char *ptr)
 	ft_putchar('\n');
 }
 
-void			ft_foldercolornormR(char *ptr)
-{
-	ft_putstr(CYAN);
-	ft_putstr(ptr);
-	ft_putstr(STOP);
-	ft_putstr("   ");
-}
-
-void			ft_execcolornormR(char *ptr)
-{
-	ft_putstr(RED);
-	ft_putstr(ptr);
-	ft_putstr(STOP);
-	ft_putstr("   ");
-}
-
 void			ft_symlinkcolor(t_files *file, t_flags flags)
 {
 	ft_putstr(MAGENTA);
@@ -52,10 +36,4 @@ void			ft_symlinkcolor(t_files *file, t_flags flags)
 	if (flags.l == TRUE)
 		ft_putstr(file->link);
 	ft_putchar('\n');
-}
-
-void			ft_normcolornormR(char *ptr)
-{
-	ft_putstr(ptr);
-	ft_putstr("   ");
 }

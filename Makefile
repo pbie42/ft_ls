@@ -25,7 +25,8 @@ SRC = srcs/main.c \
 			srcs/lists.c \
 			srcs/ft_list_swap.c \
 			srcs/sort.c \
-			srcs/selected.c
+			srcs/selected.c \
+			srcs/block.c
 
 OBJ = $(SRC:.c=.o)
 
