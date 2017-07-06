@@ -12,27 +12,51 @@
 
 #include "ft_ls.h"
 
-int								ft_pwdcheck(char *curr_dir)
+void							*ft_select_check(char *name)
 {
-	if (curr_dir == NULL)
-	{
-		ft_putstr("Error: Could not get the working directory");
-		ft_putchar('\n');
-		return (1);
-	}
-	else
-		return (0);
+	ft_putstr("ls: ");
+	ft_putstr(name);
+	ft_putendl(": No such file or directory");
+	return (NULL);
 }
 
-int								ft_dircheck(DIR *ds)
+void						ft_is_directory(t_files *tmp, char *curr_dir, t_flags f)
 {
-	if (ds == NULL)
+	char					*newPath;
+
+	if (S_ISDIR((tmp)->st_mode))
 	{
-		ft_putstr("Error: Could not open the working directory");
-		ft_putchar('\n');
-		free(ds);
-		return (1);
+		if (((tmp)->name[0] == '.'
+		&& ft_strcmp((tmp)->name, ".") != 0
+		&& ft_strcmp((tmp)->name, "..") != 0)
+		|| (tmp)->name[0] != '.')
+		{
+			newPath = make_path_fl(curr_dir, (tmp)->name);
+			ft_putchar('\n');
+			ft_putendl(newPath);
+			(tmp)->sub_dir = ft_list(newPath, f);
+		}
 	}
-	else
-		return (0);
+}
+
+void						ft_symlink_path(t_files *file, char *path, t_flags f)
+{
+	char					buf[1024];
+	ssize_t				link_size;
+	ssize_t				attr_size;
+	size_t				l;
+
+	link_size = 0;
+	attr_size = 0;
+	link_size = readlink(path, buf, sizeof(buf));
+	buf[link_size] = '\0';
+	if (f.l == TRUE)
+	{
+		l = ft_strlen(" -> ") + ft_strlen(buf);
+		if (!(file->link = (char*)malloc(sizeof(char) * l + 1)))
+			ft_exit("error in malloc link");
+		file->link = ft_strcpy(file->link, " -> ");
+		file->link = ft_strjoin(file->link, buf);
+	}
+	//	attr_size = lgetxattr(file->path, buf, value, link_size);
 }

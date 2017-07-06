@@ -12,33 +12,23 @@
 
 #include "ft_ls.h"
 
-void						ft_lpb(t_files **b_lst, struct dirent *dptr, char *pwd)
+void						ft_lpb(t_files **b_lst, struct dirent *dptr, char *pwd, t_flags flags)
 {
 	t_files				*list;
 
 	list = *b_lst;
 	if (!list)
-		list = ft_listnew(dptr, pwd);
+		list = ft_listnew(dptr, pwd, flags);
 	else
 	{
 		while ((list)->next)
 			list = list->next;
-		list->next = ft_listnew(dptr, pwd);
+		list->next = ft_listnew(dptr, pwd, flags);
 	}
 }
 
-t_files					*ft_listnew(struct dirent *dptr, char *path)
+void						ft_list_fill(struct stat fstat, t_files *alist)
 {
-	t_files				*alist;
-	struct stat			fstat;
-	char					*nw_path;
-
-	nw_path = make_path_fl(path, dptr->d_name);
-	if (lstat(nw_path, &fstat) < 0)
-		return (NULL);
-	free(nw_path);
-	if (!(alist = (t_files *)malloc(sizeof(t_files))))
-		return (NULL);
 	alist->next = NULL;
 	alist->sub_dir = NULL;
 	alist->stat = fstat;
@@ -51,8 +41,25 @@ t_files					*ft_listnew(struct dirent *dptr, char *path)
 	alist->st_size = fstat.st_size;
 	alist->st_ino = fstat.st_ino;
 	alist->st_blocks = fstat.st_blocks;
+}
+
+t_files					*ft_listnew(struct dirent *dptr, char *path, t_flags flags)
+{
+	t_files				*alist;
+	struct stat			fstat;
+	char					*nw_path;
+
+	nw_path = make_path_fl(path, dptr->d_name);
+	if (lstat(nw_path, &fstat) < 0)
+		return (NULL);
+	free(nw_path);
+	if (!(alist = (t_files *)malloc(sizeof(t_files))))
+		return (NULL);
+	ft_list_fill(fstat, alist);
 	alist->dptr = dptr;
 	alist->name = ft_strdup(dptr->d_name);
+	if (S_ISLNK((alist)->st_mode))
+		ft_symlink_path(alist, nw_path, flags);
 	return (alist);
 }
 

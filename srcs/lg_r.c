@@ -12,23 +12,22 @@
 
 #include "ft_ls.h"
 
-void							ft_is_directory(t_files *tmp, char *curr_dir, t_flags flags)
+t_files						*ft_setup_list(char *curr_dir, t_flags flags)
 {
-	char						*newPath;
+	t_r						r;
 
-	if (S_ISDIR((tmp)->st_mode))
-	{
-		if (((tmp)->name[0] == '.'
-		&& ft_strcmp((tmp)->name, ".") != 0
-		&& ft_strcmp((tmp)->name, "..") != 0)
-		|| (tmp)->name[0] != '.')
-		{
-			newPath = make_path_fl(curr_dir, (tmp)->name);
-			ft_putchar('\n');
-			ft_putendl(newPath);
-			(tmp)->sub_dir = ft_list(newPath, flags);
-		}
-	}
+	if(!(r.ds = opendir(curr_dir)))
+		ft_exit("opendir problem");
+	if(!(r.dptr = readdir(r.ds)))
+		ft_exit("readdir problem");
+	if(!flags.a)
+		while((r.dptr = readdir(r.ds)) && r.dptr->d_name[0] == '.')
+			ft_putchar('\0');
+	if(!(r.files = ft_listnew(r.dptr, curr_dir, flags)))
+		ft_exit("listnew problem");
+	while((r.dptr = readdir(r.ds)))
+		ft_lpb(&r.files, r.dptr, curr_dir, flags);
+	return (r.files);
 }
 
 void							ft_list_b(t_files *files, char *curr_dir, t_flags flags)
@@ -44,45 +43,42 @@ void							ft_list_b(t_files *files, char *curr_dir, t_flags flags)
 	ft_is_directory(tmp, curr_dir, flags);
 }
 
-t_files						*ft_list(char *curr_dir, t_flags flags)
+t_lists						ft_list_a(char *curr_dir, t_flags flags)
 {
-	t_r						r;
-	t_files					*tmp;
-	t_files					*tmp2;
+	t_lists					lists;
 
-	if(!(r.ds = opendir(curr_dir)))
-		return (NULL);
-	if(!(r.dptr = readdir(r.ds)))
-		return (NULL);
-	if(!flags.a)
-		while((r.dptr = readdir(r.ds)) && r.dptr->d_name[0] == '.')
-			ft_putchar('\0');
-	if(!(r.files = ft_listnew(r.dptr, curr_dir)))
-		return (NULL);
-	while((r.dptr = readdir(r.ds)))
-		ft_lpb(&r.files, r.dptr, curr_dir);
-	tmp = r.files;
+	lists.files = ft_setup_list(curr_dir, flags);
+	lists.tmp = lists.files;
 	if (flags.f == FALSE)
-		insertionSort(&tmp, flags);
+		insertionSort(&lists.tmp, flags);
 	if (flags.f == TRUE)
-		tmp2 = r.files;
+		lists.tmp2 = lists.files;
 	else if (flags.sm_r == TRUE)
 	{
-		tmp = reverse_lst(tmp);
-		tmp2 = tmp;
+		lists.tmp = reverse_lst(lists.tmp);
+		lists.tmp2 = lists.tmp;
 	}
 	else if (flags.t)
-		tmp2 = tmp;
+		lists.tmp2 = lists.tmp;
 	else
-		tmp2 = r.files;
-	while (tmp->next)
+		lists.tmp2 = lists.files;
+	return (lists);
+}
+
+t_files						*ft_list(char *curr_dir, t_flags flags)
+{
+	t_lists					lists;
+
+	ft_block(curr_dir, flags);
+	lists = ft_list_a(curr_dir, flags);
+	while (lists.tmp->next)
 	{
-		ft_printR(tmp, flags);
-		tmp = tmp->next;
+		ft_printR(lists.tmp, flags);
+		lists.tmp = lists.tmp->next;
 	}
-	ft_printR(tmp, flags);
+	ft_printR(lists.tmp, flags);
 	if (flags.lg_r == TRUE)
-		ft_list_b(tmp2, curr_dir, flags);
-	free(tmp);
-	return r.files;
+		ft_list_b(lists.tmp2, curr_dir, flags);
+	free(lists.tmp);
+	return lists.files;
 }
