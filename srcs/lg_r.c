@@ -20,14 +20,13 @@ t_files						*ft_setup_list(char *curr_dir, t_flags flags)
 		ft_exit("opendir problem");
 	if(!(r.dptr = readdir(r.ds)))
 		ft_exit("readdir problem");
-	if(!flags.a)
-		while((r.dptr = readdir(r.ds)) && r.dptr->d_name[0] == '.')
-			ft_putchar('\0');
+	// if(!flags.a)
+	// 	while((r.dptr = readdir(r.ds)) && r.dptr->d_name[0] == '.')
+	// 		ft_putchar('\0');
 	if(!(r.files = ft_listnew(r.dptr, curr_dir, flags)))
 		ft_exit("listnew problem");
 	while((r.dptr = readdir(r.ds)))
 		ft_lpb(&r.files, r.dptr, curr_dir, flags);
-	// free(r.ds);
 	closedir(r.ds);
 	return (r.files);
 }
@@ -59,9 +58,13 @@ t_lists						ft_list_a(char *curr_dir, t_flags flags)
 	{
 		lists.tmp = reverse_lst(lists.tmp);
 		lists.tmp2 = lists.tmp;
+		lists.files = lists.tmp;
 	}
 	else if (flags.t)
+	{
 		lists.tmp2 = lists.tmp;
+		lists.files = lists.tmp;
+	}
 	else
 		lists.tmp2 = lists.files;
 	return (lists);

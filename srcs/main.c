@@ -26,7 +26,10 @@ int						main(int ac, char **av)
 	else
 	{
 		files = ft_list(".", flags);
-		ft_free_lst(files);
+		if (flags.lg_r)
+			ft_free_R(files);
+		else
+			ft_free_lst(files);
 	}
 	return (0);
 }

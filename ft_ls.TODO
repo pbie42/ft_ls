@@ -1,14 +1,14 @@
 ft_ls:
 	✔ Need to rewrite code to be based around recursions @done (6/18/2017, 5:41:19 PM)
 		✔ Check if a file is a directory and if it is then go further. @done (6/5/2017, 3:23:21 PM)
-	☐ If no flag given check to see if it's a directory and if not send error ls: l: No such file or directory
+	✔ If no flag given check to see if it's a directory and if not send error ls: l: No such file or directory @done (7/7/2017, 9:30:16 AM)
 	☐ If no flags are given and no second argument need files to output horizontally
 	✔ If -R is given with -r make sure files stay in alpha order within folders but folder order is reversed @done (6/23/2017, 11:41:16 AM)
 		✔ For the moment files do not reverse if -R is with -r. Need to expand on this later (alphaspace.c) @done (6/23/2017, 11:41:15 AM)
-	☐ Need to allow the user to select the directories they would like to have searched @critical
+	✔ Need to allow the user to select the directories they would like to have searched @critical @done (7/7/2017, 9:30:24 AM)
 	Selected Files:
-		☐ Test all flags with selected files against real ls to make sure they display properly
-		☐ Need to make sure that any fake files need to be displayed first with the error message before showing the rest
+		✔ Test all flags with selected files against real ls to make sure they display properly @done (7/7/2017, 9:30:29 AM)
+		✔ Need to make sure that any fake files need to be displayed first with the error message before showing the rest @done (7/7/2017, 9:30:32 AM)
 	Symlink:
 		✔ Print the path to the symlink @done (6/29/2017, 1:06:35 PM)
 	Flags:
@@ -34,3 +34,12 @@ ft_ls:
 				☐ 
 	Output:
 		☐ properly space when using -la
+	Free (No Memory Leaks):
+		✔ No flags @done (7/7/2017, 9:40:39 AM)
+		✔ -l @done (7/7/2017, 9:31:44 AM)
+		✔ -r @done (7/7/2017, 9:38:12 AM)
+		✔ -u @done (7/7/2017, 9:31:47 AM)
+		✔ -f @done (7/7/2017, 9:31:48 AM)
+		☐ -R
+		✔ -t @done (7/7/2017, 9:40:41 AM)
+		✔ -a @done (7/7/2017, 9:32:07 AM)

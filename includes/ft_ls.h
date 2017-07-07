@@ -143,5 +143,6 @@ t_files						*reverse_lst(t_files *head);
 t_files						*ft_list(char *curr_dir, t_flags flags);
 void							ft_free_lst(t_files *file);
 void							ft_free_lst_rvrs(t_files *file);
+void							ft_free_R(t_files *file);
 
 #endif

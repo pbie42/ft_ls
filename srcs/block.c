@@ -26,6 +26,7 @@ void							ft_block(char *curr_dir, t_flags flags)
 {
 	t_r						r;
 	int						block;
+	t_files					*tmp;
 
 	block = 0;
 	if(!(r.ds = opendir(curr_dir)))
@@ -36,6 +37,7 @@ void							ft_block(char *curr_dir, t_flags flags)
 		ft_exit("listnew problem");
 	while((r.dptr = readdir(r.ds)))
 		ft_lpb(&r.files, r.dptr, curr_dir, flags);
+	tmp = r.files;
 	while (r.files->next)
 	{
 		if (ft_strcmp(r.files->name, ".") != 0 && ft_strcmp(r.files->name, "..")
@@ -49,6 +51,6 @@ void							ft_block(char *curr_dir, t_flags flags)
 	}
 	block += (int)r.files->st_blocks;
 	closedir(r.ds);
-	ft_free_lst_rvrs(r.files);
+	ft_free_lst(tmp);
 	ft_print_block(block, flags);
 }

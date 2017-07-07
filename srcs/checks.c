@@ -32,9 +32,21 @@ void						ft_is_directory(t_files *tmp, char *curr_dir, t_flags f)
 		|| (tmp)->name[0] != '.')
 		{
 			newPath = make_path_fl(curr_dir, (tmp)->name);
-			ft_putchar('\n');
-			ft_putendl(newPath);
-			(tmp)->sub_dir = ft_list(newPath, f);
+			if (!f.a)
+			{
+				if (tmp->name[0] != '.')
+				{
+					ft_putchar('\n');
+					ft_putendl(newPath);
+					(tmp)->sub_dir = ft_list(newPath, f);
+				}
+			}
+			else
+			{
+				ft_putchar('\n');
+				ft_putendl(newPath);
+				(tmp)->sub_dir = ft_list(newPath, f);
+			}
 			free(newPath);
 		}
 	}

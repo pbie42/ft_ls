@@ -71,11 +71,27 @@ void							ft_printType(t_files *tmp, t_flags flags)
 
 void							ft_printR(t_files *tmp, t_flags flags)
 {
-	if (flags.l == TRUE)
+	if (!flags.a)
 	{
-		ft_printpermissions(tmp->stat);
-		ft_printinfo(tmp->stat, flags);
-		ft_printtime(tmp->stat, flags);
+		if (tmp->name[0] != '.')
+		{
+			if (flags.l == TRUE)
+			{
+				ft_printpermissions(tmp->stat);
+				ft_printinfo(tmp->stat, flags);
+				ft_printtime(tmp->stat, flags);
+			}
+			ft_printType(tmp, flags);
+		}
 	}
-	ft_printType(tmp, flags);
+	else
+	{
+		if (flags.l == TRUE)
+		{
+			ft_printpermissions(tmp->stat);
+			ft_printinfo(tmp->stat, flags);
+			ft_printtime(tmp->stat, flags);
+		}
+		ft_printType(tmp, flags);
+	}
 }
