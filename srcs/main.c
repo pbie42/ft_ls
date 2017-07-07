@@ -16,6 +16,7 @@ int						main(int ac, char **av)
 {
 	t_flags				flags;
 	t_start				start;
+	t_files				*files;
 
 	ft_init_flags(&flags);
 	if (ac > 1)
@@ -23,6 +24,9 @@ int						main(int ac, char **av)
 	if (start.selected != 0)
 		ft_select(".", av, flags, start.start);
 	else
-		ft_list(".", flags);
+	{
+		files = ft_list(".", flags);
+		ft_free_lst(files);
+	}
 	return (0);
 }

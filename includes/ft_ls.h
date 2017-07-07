@@ -60,6 +60,7 @@ typedef struct				s_files
 	char						*name;
 	char						*link;
 	struct s_files			*next;
+	struct s_files			*prev;
 	struct s_files			*sub_dir;
 	struct stat				stat;
 	time_t					mtime;
@@ -140,5 +141,7 @@ t_start						ft_find_flags(char **options, t_flags *f);
 t_files						*ft_listnew(struct dirent *ent, char *path, t_flags flags);
 t_files						*reverse_lst(t_files *head);
 t_files						*ft_list(char *curr_dir, t_flags flags);
+void							ft_free_lst(t_files *file);
+void							ft_free_lst_rvrs(t_files *file);
 
 #endif

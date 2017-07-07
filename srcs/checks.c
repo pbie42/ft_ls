@@ -35,6 +35,7 @@ void						ft_is_directory(t_files *tmp, char *curr_dir, t_flags f)
 			ft_putchar('\n');
 			ft_putendl(newPath);
 			(tmp)->sub_dir = ft_list(newPath, f);
+			free(newPath);
 		}
 	}
 }
@@ -42,6 +43,7 @@ void						ft_is_directory(t_files *tmp, char *curr_dir, t_flags f)
 void						ft_symlink_path(t_files *file, char *path, t_flags f)
 {
 	char					buf[1024];
+	char					*link;
 	ssize_t				link_size;
 	ssize_t				attr_size;
 	size_t				l;
@@ -53,10 +55,11 @@ void						ft_symlink_path(t_files *file, char *path, t_flags f)
 	if (f.l == TRUE)
 	{
 		l = ft_strlen(" -> ") + ft_strlen(buf);
-		if (!(file->link = (char*)malloc(sizeof(char) * l + 1)))
+		if (!(link = (char*)malloc(sizeof(char) * l + 1)))
 			ft_exit("error in malloc link");
-		file->link = ft_strcpy(file->link, " -> ");
-		file->link = ft_strjoin(file->link, buf);
+		link = ft_strcpy(link, " -> ");
+		file->link = ft_strjoin(link, buf);
+		free(link);
 	}
 	//	attr_size = lgetxattr(file->path, buf, value, link_size);
 }

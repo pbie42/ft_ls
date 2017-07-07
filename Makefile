@@ -28,7 +28,8 @@ SRC = srcs/main.c \
 			srcs/selected.c \
 			srcs/block.c \
 			srcs/access.c \
-			srcs/modification.c
+			srcs/modification.c \
+			srcs/free.c
 
 OBJ = $(SRC:.c=.o)
 

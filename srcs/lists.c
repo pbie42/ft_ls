@@ -24,6 +24,7 @@ void						ft_lpb(t_files **b_lst, struct dirent *dptr, char *pwd, t_flags flags)
 		while ((list)->next)
 			list = list->next;
 		list->next = ft_listnew(dptr, pwd, flags);
+		list->next->prev = list;
 	}
 }
 
@@ -49,6 +50,7 @@ t_files					*ft_listnew(struct dirent *dptr, char *path, t_flags flags)
 	struct stat			fstat;
 	char					*nw_path;
 
+	alist = NULL;
 	nw_path = make_path_fl(path, dptr->d_name);
 	if (lstat(nw_path, &fstat) < 0)
 		return (NULL);

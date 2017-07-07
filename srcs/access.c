@@ -26,6 +26,7 @@ void						sortedAccessTime_b(t_files *current, t_files *new_node)
 				&& current->next->atime - new_node->atime == 0)
 			current = current->next;
 		new_node->next = current->next;
+		new_node->prev = current->prev;
 		current->next = new_node;
 	}
 }
@@ -50,6 +51,7 @@ void						sortedAccessTime(t_files** head, t_files* new_node)
 		else
 		{
 			new_node->next = current->next;
+			new_node->prev = current->prev;
 			current->next = new_node;
 		}
 	}

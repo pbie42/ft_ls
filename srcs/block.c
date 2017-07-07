@@ -40,7 +40,7 @@ void							ft_block(char *curr_dir, t_flags flags)
 	{
 		if (ft_strcmp(r.files->name, ".") != 0 && ft_strcmp(r.files->name, "..")
 			!= 0 && r.files->name[0] == '.' && flags.a != TRUE)
-			r.files = r.files->next;
+				r.files = r.files->next;
 		else
 		{
 			block += (int)r.files->st_blocks;
@@ -48,5 +48,7 @@ void							ft_block(char *curr_dir, t_flags flags)
 		}
 	}
 	block += (int)r.files->st_blocks;
+	closedir(r.ds);
+	ft_free_lst_rvrs(r.files);
 	ft_print_block(block, flags);
 }

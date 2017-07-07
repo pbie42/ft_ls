@@ -31,6 +31,7 @@ void						sortedInsert(t_files** head, t_files* new_node)
 				current = current->next;
 		}
 		new_node->next = current->next;
+		new_node->prev = current->prev;
 		current->next = new_node;
 	}
 }
