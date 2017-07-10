@@ -54,12 +54,14 @@ void						ft_select_bis(t_files *tmp2, char *pwd, t_flags flags)
 	}
 	if (!S_ISDIR(tmp2->st_mode))
 		ft_printR(tmp2, flags);
+	free(nw_path);
 }
 
 void						ft_select_ter(t_files *tmp, char *pwd, t_flags flags)
 {
 	struct stat			fstat;
 	char					*nw_path;
+	t_files				*file;
 
 	nw_path = make_path_fl(pwd, tmp->name);
 	if (lstat(nw_path, &fstat) < 0)
@@ -74,9 +76,11 @@ void						ft_select_ter(t_files *tmp, char *pwd, t_flags flags)
 		{
 			ft_putchar('\n');
 			ft_putendl(nw_path);
-			ft_list(nw_path, flags);
+			file = ft_list(nw_path, flags);
+			ft_free_R(file);
 		}
 	}
+	free(nw_path);
 }
 
 t_files					*ft_select_setup(char **av, t_files *file, char *pwd, int x, t_flags flags)
@@ -127,4 +131,5 @@ void						ft_select(char *pwd, char **av, t_flags flags, int start)
 		tmp = tmp->next;
 	}
 	ft_select_ter(tmp, pwd, flags);
+	ft_free_R(file);
 }

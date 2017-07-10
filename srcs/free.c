@@ -16,14 +16,13 @@ void					ft_free_lst(t_files *file)
 {
 	t_files			*curr;
 
-	while ((curr = file) != NULL) { // set curr to head, stop if list empty.
-		file = file->next;          // advance head to next element.
+	while ((curr = file) != NULL)
+	{
+		file = file->next;
 		free(curr->name);
-		// ft_putendl("freeing lst");
 		if (S_ISLNK((curr)->st_mode)){
-			// ft_putendl("freeing link lst");
 			free(curr->link);}
-		free (curr);                // delete saved pointer.
+		free (curr);
 	}
 }
 
