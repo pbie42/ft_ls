@@ -6,13 +6,13 @@
 /*   By: pbie <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/13 16:44:33 by pbie              #+#    #+#             */
-/*   Updated: 2016/05/13 19:01:46 by pbie             ###   ########.fr       */
+/*   Updated: 2017/08/10 16:38:25 by pbie             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void							*ft_select_check(char *name)
+void					*ft_select_check(char *name)
 {
 	ft_putstr("ls: ");
 	ft_putstr(name);
@@ -20,42 +20,38 @@ void							*ft_select_check(char *name)
 	return (NULL);
 }
 
-void						ft_is_directory(t_files *tmp, char *curr_dir, t_flags f)
+void					ft_is_directory(t_files *tmp, char *curr_dir, t_flags f)
 {
-	char					*newPath;
+	char				*new_path;
 
 	if (S_ISDIR((tmp)->st_mode))
-	{
-		if (((tmp)->name[0] == '.'
-		&& ft_strcmp((tmp)->name, ".") != 0
-		&& ft_strcmp((tmp)->name, "..") != 0)
-		|| (tmp)->name[0] != '.')
+		if (((tmp)->name[0] == '.' && ft_strcmp((tmp)->name, ".") != 0
+		&& ft_strcmp((tmp)->name, "..") != 0) || (tmp)->name[0] != '.')
 		{
-			newPath = make_path_fl(curr_dir, (tmp)->name);
+			new_path = make_path_fl(curr_dir, (tmp)->name);
 			if (!f.a)
 			{
 				if (tmp->name[0] != '.')
 				{
 					ft_putchar('\n');
-					ft_putendl(newPath);
-					(tmp)->sub_dir = ft_list(newPath, f);
+					ft_putendl(new_path);
+					(tmp)->sub_dir = ft_list(new_path, f);
 				}
 			}
 			else
 			{
 				ft_putchar('\n');
-				ft_putendl(newPath);
-				(tmp)->sub_dir = ft_list(newPath, f);
+				ft_putendl(new_path);
+				(tmp)->sub_dir = ft_list(new_path, f);
 			}
-			free(newPath);
+			free(new_path);
 		}
-	}
 }
 
-void						ft_symlink_path(t_files *file, char *path, t_flags f)
+void					ft_symlink_path(t_files *file, char *path, t_flags f)
 {
-	char					buf[1024];
-	char					*link;
+	char				buf[1024];
+	char				*link;
 	ssize_t				link_size;
 	ssize_t				attr_size;
 	size_t				l;
@@ -73,5 +69,4 @@ void						ft_symlink_path(t_files *file, char *path, t_flags f)
 		file->link = ft_strjoin(link, buf);
 		free(link);
 	}
-	//	attr_size = lgetxattr(file->path, buf, value, link_size);
 }

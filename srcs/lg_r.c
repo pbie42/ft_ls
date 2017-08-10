@@ -6,34 +6,31 @@
 /*   By: pbie <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/19 15:16:39 by pbie              #+#    #+#             */
-/*   Updated: 2016/05/19 15:19:09 by pbie             ###   ########.fr       */
+/*   Updated: 2017/08/10 17:53:44 by pbie             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_files						*ft_setup_list(char *curr_dir, t_flags flags)
+t_files					*ft_setup_list(char *curr_dir, t_flags flags)
 {
-	t_r						r;
+	t_r					r;
 
-	if(!(r.ds = opendir(curr_dir)))
+	if (!(r.ds = opendir(curr_dir)))
 		ft_exit("opendir problem");
-	if(!(r.dptr = readdir(r.ds)))
+	if (!(r.dptr = readdir(r.ds)))
 		ft_exit("readdir problem");
-	// if(!flags.a)
-	// 	while((r.dptr = readdir(r.ds)) && r.dptr->d_name[0] == '.')
-	// 		ft_putchar('\0');
-	if(!(r.files = ft_listnew(r.dptr, curr_dir, flags)))
+	if (!(r.files = ft_listnew(r.dptr, curr_dir, flags)))
 		ft_exit("listnew problem");
-	while((r.dptr = readdir(r.ds)))
+	while ((r.dptr = readdir(r.ds)))
 		ft_lpb(&r.files, r.dptr, curr_dir, flags);
 	closedir(r.ds);
 	return (r.files);
 }
 
-void							ft_list_b(t_files *files, char *curr_dir, t_flags flags)
+void					ft_list_b(t_files *files, char *curr_dir, t_flags flags)
 {
-	t_files					*tmp;
+	t_files				*tmp;
 
 	tmp = files;
 	while (tmp->next)
@@ -44,14 +41,14 @@ void							ft_list_b(t_files *files, char *curr_dir, t_flags flags)
 	ft_is_directory(tmp, curr_dir, flags);
 }
 
-t_lists						ft_list_a(char *curr_dir, t_flags flags)
+t_lists					ft_list_a(char *curr_dir, t_flags flags)
 {
-	t_lists					lists;
+	t_lists				lists;
 
 	lists.files = ft_setup_list(curr_dir, flags);
 	lists.tmp = lists.files;
 	if (flags.f == FALSE)
-		insertionSort(&lists.tmp, flags);
+		insertion_sort(&lists.tmp, flags);
 	if (flags.f == TRUE)
 		lists.tmp2 = lists.files;
 	else if (flags.sm_r == TRUE)
@@ -70,10 +67,10 @@ t_lists						ft_list_a(char *curr_dir, t_flags flags)
 	return (lists);
 }
 
-t_files						*ft_list(char *curr_dir, t_flags flags)
+t_files					*ft_list(char *curr_dir, t_flags flags)
 {
-	t_lists					lists;
-	t_files					*tmp;
+	t_lists				lists;
+	t_files				*tmp;
 
 	if (flags.l == TRUE)
 		ft_block(curr_dir, flags);
@@ -81,11 +78,11 @@ t_files						*ft_list(char *curr_dir, t_flags flags)
 	tmp = lists.tmp;
 	while (lists.tmp->next)
 	{
-		ft_printR(lists.tmp, flags);
+		ft_print_r(lists.tmp, flags);
 		lists.tmp = lists.tmp->next;
 	}
-	ft_printR(lists.tmp, flags);
+	ft_print_r(lists.tmp, flags);
 	if (flags.lg_r == TRUE)
 		ft_list_b(lists.tmp2, curr_dir, flags);
-	return lists.files;
+	return (lists.files);
 }

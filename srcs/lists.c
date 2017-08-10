@@ -6,29 +6,29 @@
 /*   By: pbie <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 18:21:05 by pbie              #+#    #+#             */
-/*   Updated: 2016/02/10 17:06:14 by pbie             ###   ########.fr       */
+/*   Updated: 2017/08/10 17:57:36 by pbie             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void						ft_lpb(t_files **b_lst, struct dirent *dptr, char *pwd, t_flags flags)
+void				ft_lpb(t_files **b, struct dirent *d, char *p, t_flags f)
 {
-	t_files				*list;
+	t_files			*list;
 
-	list = *b_lst;
+	list = *b;
 	if (!list)
-		list = ft_listnew(dptr, pwd, flags);
+		list = ft_listnew(d, p, f);
 	else
 	{
 		while ((list)->next)
 			list = list->next;
-		list->next = ft_listnew(dptr, pwd, flags);
+		list->next = ft_listnew(d, p, f);
 		list->next->prev = list;
 	}
 }
 
-void						ft_list_fill(struct stat fstat, t_files *alist)
+void				ft_list_fill(struct stat fstat, t_files *alist)
 {
 	alist->next = NULL;
 	alist->sub_dir = NULL;
@@ -44,11 +44,11 @@ void						ft_list_fill(struct stat fstat, t_files *alist)
 	alist->st_blocks = fstat.st_blocks;
 }
 
-t_files					*ft_listnew(struct dirent *dptr, char *path, t_flags flags)
+t_files				*ft_listnew(struct dirent *dptr, char *path, t_flags flags)
 {
-	t_files				*alist;
-	struct stat			fstat;
-	char					*nw_path;
+	t_files			*alist;
+	struct stat		fstat;
+	char			*nw_path;
 
 	alist = NULL;
 	nw_path = make_path_fl(path, dptr->d_name);
@@ -65,11 +65,11 @@ t_files					*ft_listnew(struct dirent *dptr, char *path, t_flags flags)
 	return (alist);
 }
 
-t_files					*reverse_lst(t_files *head)
+t_files				*reverse_lst(t_files *head)
 {
-	t_files				*curr;
-	t_files				*prev;
-	t_files				*next;
+	t_files			*curr;
+	t_files			*prev;
+	t_files			*next;
 
 	curr = head;
 	prev = NULL;
@@ -81,5 +81,5 @@ t_files					*reverse_lst(t_files *head)
 		curr = next;
 	}
 	head = prev;
-	return head;
+	return (head);
 }

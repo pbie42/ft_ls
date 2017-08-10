@@ -20,9 +20,11 @@ void					ft_free_lst(t_files *file)
 	{
 		file = file->next;
 		free(curr->name);
-		if (S_ISLNK((curr)->st_mode)){
-			free(curr->link);}
-		free (curr);
+		if (S_ISLNK((curr)->st_mode))
+		{
+			free(curr->link);
+		}
+		free(curr);
 	}
 }
 
@@ -30,35 +32,36 @@ void					ft_free_lst_rvrs(t_files *file)
 {
 	t_files			*curr;
 
-	while ((curr = file) != NULL) { // set curr to head, stop if list empty.
-		file = file->prev;          // advance head to next element.
+	while ((curr = file) != NULL)
+	{
+		file = file->prev;
 		free(curr->name);
-		// ft_putendl("freeing lst rvrs");
-		if (S_ISLNK((curr)->st_mode)){
-			// ft_putendl("freeing link rvs");
-			free(curr->link);}
-		free (curr);                // delete saved pointer.
+		if (S_ISLNK((curr)->st_mode))
+		{
+			free(curr->link);
+		}
+		free(curr);
 	}
 }
 
-void					ft_free_R(t_files *file)
+void					ft_free_r(t_files *file)
 {
 	t_files			*curr;
 
 	while ((curr = file) != NULL)
-	{ // set curr to head, stop if list empty.
+	{
 		if (S_ISDIR((file)->st_mode))
 		{
 			if (((file)->name[0] == '.'
 				&& ft_strcmp((file)->name, ".") != 0
 				&& ft_strcmp((file)->name, "..") != 0)
 				|| (file)->name[0] != '.')
-				ft_free_R(file->sub_dir);
+				ft_free_r(file->sub_dir);
 		}
-		file = file->next;          // advance head to next element.
+		file = file->next;
 		free(curr->name);
 		if (S_ISLNK((curr)->st_mode))
 			free(curr->link);
-		free (curr);                // delete saved pointer.
+		free(curr);
 	}
 }

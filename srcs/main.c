@@ -14,20 +14,22 @@
 
 int						main(int ac, char **av)
 {
-	t_flags				flags;
 	t_start				start;
 	t_files				*files;
+	t_main				main;
 
-	ft_init_flags(&flags);
+	main.pwd = ft_strdup(".");
+	ft_init_flags(&main.flags);
 	if (ac > 1)
-		start = ft_find_flags(av, &flags);
+		start = ft_find_flags(av, &main.flags);
+	main.start = start.start;
 	if (start.selected != 0)
-		ft_select(".", av, flags, start.start);
+		ft_select(av, main);
 	else
 	{
-		files = ft_list(".", flags);
-		if (flags.lg_r)
-			ft_free_R(files);
+		files = ft_list(".", main.flags);
+		if (main.flags.lg_r)
+			ft_free_r(files);
 		else
 			ft_free_lst(files);
 	}

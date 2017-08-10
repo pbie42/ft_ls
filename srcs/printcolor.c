@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-void			ft_foldercolorR(char *ptr)
+void			ft_folder_color_r(char *ptr)
 {
 	ft_putstr(CYAN);
 	ft_putstr(ptr);
@@ -20,7 +20,7 @@ void			ft_foldercolorR(char *ptr)
 	ft_putchar('\n');
 }
 
-void			ft_execcolorR(char *ptr)
+void			ft_exec_color_r(char *ptr)
 {
 	ft_putstr(RED);
 	ft_putstr(ptr);

@@ -14,7 +14,6 @@
 
 void							ft_isdir(struct stat st)
 {
-	//Check if the file is a directory
 	if (S_ISDIR(st.st_mode))
 		ft_putchar('d');
 	else
@@ -25,7 +24,6 @@ void							ft_usrpermission(struct stat st)
 {
 	mode_t					permission;
 
-	//Check the owner permission
 	permission = st.st_mode & S_IRWXU;
 	if (permission & S_IRUSR)
 		ft_putchar('r');
@@ -44,7 +42,7 @@ void							ft_usrpermission(struct stat st)
 void							ft_grppermission(struct stat st)
 {
 	mode_t					permission;
-	//Check the group permission
+
 	permission = st.st_mode & S_IRWXG;
 	if (permission & S_IRGRP)
 		ft_putchar('r');
@@ -63,9 +61,8 @@ void							ft_grppermission(struct stat st)
 void							ft_othpermission(struct stat st)
 {
 	mode_t					permission;
-	//Check other's permission
-	permission = st.st_mode & S_IRWXO;
 
+	permission = st.st_mode & S_IRWXO;
 	if (permission & S_IROTH)
 		ft_putchar('r');
 	else

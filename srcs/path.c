@@ -6,15 +6,15 @@
 /*   By: pbie <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/12 13:16:01 by pbie              #+#    #+#             */
-/*   Updated: 2016/05/19 15:09:41 by pbie             ###   ########.fr       */
+/*   Updated: 2017/08/10 18:05:13 by pbie             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-char					*make_path_fl(char *dir, char *file)
+char				*make_path_fl(char *dir, char *file)
 {
-	char				*nw_path;
+	char			*nw_path;
 	size_t			l;
 
 	l = ft_strlen(dir) + ft_strlen(file);

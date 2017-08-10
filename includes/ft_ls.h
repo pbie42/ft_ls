@@ -6,7 +6,7 @@
 /*   By: pbie <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 13:17:17 by pbie              #+#    #+#             */
-/*   Updated: 2016/12/11 15:16:26 by pbie             ###   ########.fr       */
+/*   Updated: 2017/08/10 18:56:17 by pbie             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,96 +53,101 @@
 # include <time.h>
 # include "../libft/includes/libft.h"
 
-typedef int					t_bool;
+typedef int			t_bool;
 
-typedef struct				s_files
+typedef struct		s_files
 {
-	char						*name;
-	char						*link;
-	struct s_files			*next;
-	struct s_files			*prev;
-	struct s_files			*sub_dir;
-	struct stat				stat;
-	time_t					mtime;
-	time_t					atime;
-	mode_t					st_mode;
-	nlink_t					st_nlink;
-	uid_t						st_uid;
-	gid_t						st_gid;
-	off_t						st_size;
-	ino_t						st_ino;
-	blkcnt_t					st_blocks;
-	struct dirent			*dptr;
-}								t_files;
+	char			*name;
+	char			*link;
+	struct s_files	*next;
+	struct s_files	*prev;
+	struct s_files	*sub_dir;
+	struct stat		stat;
+	time_t			mtime;
+	time_t			atime;
+	mode_t			st_mode;
+	nlink_t			st_nlink;
+	uid_t			st_uid;
+	gid_t			st_gid;
+	off_t			st_size;
+	ino_t			st_ino;
+	blkcnt_t		st_blocks;
+	struct dirent	*dptr;
+}					t_files;
 
-typedef struct				s_flags
+typedef struct		s_flags
 {
-	t_bool					l;
-	t_bool					a;
-	t_bool					t;
-	t_bool					sm_r;
-	t_bool					lg_r;
-	t_bool					f;
-	t_bool					g;
-	t_bool					u;
-}								t_flags;
+	t_bool			l;
+	t_bool			a;
+	t_bool			t;
+	t_bool			sm_r;
+	t_bool			lg_r;
+	t_bool			f;
+	t_bool			g;
+	t_bool			u;
+}					t_flags;
 
-typedef struct				s_r
+typedef struct		s_r
 {
-	DIR						*ds;
-	struct dirent			*dptr;
-	t_files					*files;
-}								t_r;
+	DIR				*ds;
+	struct dirent	*dptr;
+	t_files			*files;
+}					t_r;
 
-typedef struct				s_start
+typedef struct		s_start
 {
-	int						start;
-	int						selected;
-}								t_start;
+	int				start;
+	int				selected;
+}					t_start;
 
-typedef struct				s_lists
+typedef struct		s_lists
 {
-	t_files					*files;
-	t_files					*tmp;
-	t_files					*tmp2;
-}								t_lists;
+	t_files			*files;
+	t_files			*tmp;
+	t_files			*tmp2;
+}					t_lists;
 
-typedef struct				s_single
+typedef struct		s_single
 {
-	t_files					*alist;
-	struct stat				fstat;
-	char						*nw_path;
-}								t_single;
+	t_files			*alist;
+	struct stat		fstat;
+	char			*nw_path;
+}					t_single;
 
-void							ft_foldercolorR(char *ptr);
-void							ft_execcolorR(char *ptr);
-void							ft_symlinkcolor(t_files *file, t_flags flags);
-void							ft_init_flags(t_flags *f);
-void							ft_which_flags(char *ops, t_flags *f);
-void							ft_printpermissions(struct stat st);
-void							ft_printinfo(struct stat st, t_flags flags);
-void							ft_printtime(struct stat st, t_flags flags);
-void							ft_printR(t_files *tmp, t_flags flags);
-void							ft_printType(t_files *tmp, t_flags flags);
-void							ft_lpb(t_files **b_lst, struct dirent *dptr, char *pwd, t_flags flags);
-void							ft_list_swap(t_files **head, t_files **a, t_files **b);
-void							insertionSort(t_files **head, t_flags flags);
-void							sortedInsert(t_files** head, t_files* new_node);
-void							sortedInsertTime(t_files** head, t_files* new_node);
-void							ft_select(char *pwd, char **av, t_flags flags, int start);
-void							*ft_select_check(char *name);
-void							ft_symlink_path(t_files *file, char *path, t_flags f);
-void							ft_is_directory(t_files *tmp, char *curr_dir, t_flags f);
-void							ft_block(char *curr_dir, t_flags flags);
-void							sortedAccessTime(t_files** head, t_files* new_node);
-void							sortedInsertTime(t_files** head, t_files* new_node);
-char							*make_path_fl(char *dir, char *file);
-t_start						ft_find_flags(char **options, t_flags *f);
-t_files						*ft_listnew(struct dirent *ent, char *path, t_flags flags);
-t_files						*reverse_lst(t_files *head);
-t_files						*ft_list(char *curr_dir, t_flags flags);
-void							ft_free_lst(t_files *file);
-void							ft_free_lst_rvrs(t_files *file);
-void							ft_free_R(t_files *file);
+typedef struct		s_main
+{
+	t_flags			flags;
+	int				start;
+	char			*pwd;
+}					t_main;
+
+void				ft_folder_color_r(char *ptr);
+void				ft_exec_color_r(char *ptr);
+void				ft_symlinkcolor(t_files *file, t_flags flags);
+void				ft_init_flags(t_flags *f);
+void				ft_which_flags(char *ops, t_flags *f);
+void				ft_printpermissions(struct stat st);
+void				ft_printinfo(struct stat st, t_flags flags);
+void				ft_printtime(struct stat st, t_flags flags);
+void				ft_print_r(t_files *tmp, t_flags flags);
+void				ft_lpb(t_files **b, struct dirent *d, char *p, t_flags f);
+void				ft_list_swap(t_files **head, t_files **a, t_files **b);
+void				insertion_sort(t_files **head, t_flags flags);
+void				sorted_insert_time(t_files **head, t_files *new_node);
+void				ft_select(char **av, t_main main);
+void				*ft_select_check(char *name);
+void				ft_symlink_path(t_files *file, char *path, t_flags f);
+void				ft_is_directory(t_files *tmp, char *curr_dir, t_flags f);
+void				ft_block(char *curr_dir, t_flags flags);
+void				sorted_access_time(t_files **head, t_files *new_node);
+char				*make_path_fl(char *dir, char *file);
+t_start				ft_find_flags(char **options, t_flags *f);
+t_files				*ft_listnew(struct dirent *ent, char *path, t_flags flags);
+t_files				*reverse_lst(t_files *head);
+t_files				*ft_setup_list(char *curr_dir, t_flags flags);
+t_files				*ft_list(char *curr_dir, t_flags flags);
+void				ft_free_lst(t_files *file);
+void				ft_free_lst_rvrs(t_files *file);
+void				ft_free_r(t_files *file);
 
 #endif

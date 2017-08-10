@@ -6,13 +6,13 @@
 /*   By: pbie <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/22/06 13:17:17 by pbie              #+#    #+#             */
-/*   Updated: 2017/22/06 15:16:26 by pbie             ###   ########.fr       */
+/*   Updated: 2017/08/10 18:51:33 by pbie             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void						sortedInsert(t_files** head, t_files* new_node)
+void					sorted_insert(t_files **head, t_files *new_node)
 {
 	t_files				*current;
 
@@ -23,12 +23,11 @@ void						sortedInsert(t_files** head, t_files* new_node)
 	}
 	else
 	{
-		/* Locate the node before the point of insertion */
 		current = *head;
 		while (current->next != NULL
 				&& ft_strcmp(current->next->name, new_node->name) < 0)
 		{
-				current = current->next;
+			current = current->next;
 		}
 		new_node->next = current->next;
 		new_node->prev = current->prev;
@@ -36,7 +35,7 @@ void						sortedInsert(t_files** head, t_files* new_node)
 	}
 }
 
-void						insertionSort(t_files **head, t_flags flags)
+void					insertion_sort(t_files **head, t_flags flags)
 {
 	t_files				*sorted;
 	t_files				*current;
@@ -48,11 +47,11 @@ void						insertionSort(t_files **head, t_flags flags)
 	{
 		next = current->next;
 		if (flags.t == TRUE && flags.u == TRUE)
-			sortedAccessTime(&sorted, current);
+			sorted_access_time(&sorted, current);
 		else if (flags.t == TRUE)
-			sortedInsertTime(&sorted, current);
+			sorted_insert_time(&sorted, current);
 		else
-			sortedInsert(&sorted, current);
+			sorted_insert(&sorted, current);
 		current = next;
 	}
 	*head = sorted;
