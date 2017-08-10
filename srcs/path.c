@@ -22,8 +22,13 @@ char				*make_path_fl(char *dir, char *file)
 	nw_path = NULL;
 	if (!(nw_path = (char*)malloc(sizeof(char) * l + 1)))
 		return (NULL);
-	nw_path = ft_strcpy(nw_path, dir);
-	nw_path = ft_strcat(nw_path, "/");
-	nw_path = ft_strcat(nw_path, file);
+	if (file[0] == '/' || file[0] == '~')
+		nw_path = ft_strdup(file);
+	else
+	{
+		nw_path = ft_strcpy(nw_path, dir);
+		nw_path = ft_strcat(nw_path, "/");
+		nw_path = ft_strcat(nw_path, file);
+	}
 	return (nw_path);
 }
