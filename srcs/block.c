@@ -25,7 +25,7 @@ void					ft_print_block(int block, t_flags flags)
 void					*ft_setup_block(char *curr_dir, t_flags flags, t_r *r)
 {
 	if (!(r->ds = opendir(curr_dir)))
-		ft_exit("opendir problem");
+		ft_exit(strerror(errno));
 	if (!(r->dptr = readdir(r->ds)))
 		ft_exit("readdir problem");
 	if (!(r->files = ft_listnew(r->dptr, curr_dir, flags)))

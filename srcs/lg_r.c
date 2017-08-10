@@ -17,7 +17,14 @@ t_files					*ft_setup_list(char *curr_dir, t_flags flags)
 	t_r					r;
 
 	if (!(r.ds = opendir(curr_dir)))
-		ft_exit("opendir problem");
+	{
+		// ls: .DocumentRevisions-V100: Permission denied
+		ft_putstr("ls: ");
+		ft_putstr(curr_dir);
+		ft_putstr(": ");
+		ft_putendl(strerror(errno));
+		return (NULL);
+	}
 	if (!(r.dptr = readdir(r.ds)))
 		ft_exit("readdir problem");
 	if (!(r.files = ft_listnew(r.dptr, curr_dir, flags)))

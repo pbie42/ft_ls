@@ -51,6 +51,7 @@
 # include <pwd.h>
 # include <grp.h>
 # include <time.h>
+# include <errno.h>
 # include "../libft/includes/libft.h"
 
 typedef int			t_bool;
