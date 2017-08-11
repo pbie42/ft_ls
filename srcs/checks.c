@@ -66,7 +66,7 @@ void					ft_symlink_path(t_files *file, char *path, t_flags f)
 		if (!(link = (char*)malloc(sizeof(char) * l + 1)))
 			ft_exit("error in malloc link");
 		link = ft_strcpy(link, " -> ");
-		if (ft_strlen(buf) == 0)
+		if (link_size < 0)
 			file->link = ft_strjoin(link, ft_strjoin("private/", path));
 		else
 			file->link = ft_strjoin(link, buf);
