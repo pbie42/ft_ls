@@ -27,7 +27,8 @@ int						main(int ac, char **av)
 		ft_select(av, main);
 	else
 	{
-		files = ft_list(".", main.flags);
+		if (!(files = ft_list(".", main.flags)))
+			ft_exit("\0");
 		if (main.flags.lg_r)
 			ft_free_r(files);
 		else

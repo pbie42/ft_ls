@@ -65,6 +65,7 @@ void					ft_symlink_path(t_files *file, char *path, t_flags f)
 		l = ft_strlen(" -> ") + ft_strlen(buf);
 		if (!(link = (char*)malloc(sizeof(char) * l + 1)))
 			ft_exit("error in malloc link");
+		ft_putendl(buf); //GET RID OF THIS LATER
 		link = ft_strcpy(link, " -> ");
 		file->link = ft_strjoin(link, buf);
 		free(link);
