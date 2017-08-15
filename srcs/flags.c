@@ -31,7 +31,7 @@ void						ft_flag_errors(char c, char *s, int x)
 		ft_putstr("ls: illegal option -- ");
 		ft_putchar(c);
 		ft_putchar('\n');
-		ft_putendl("usage: ls [-Ralrt] [file ...]");
+		ft_putendl("usage: ls [-Ralrtfgu] [file ...]");
 		ft_exit("fail");
 	}
 	else
@@ -55,7 +55,10 @@ void						ft_flags(char *flags, t_flags *f, int x)
 	else if (flags[x] == 'R')
 		f->lg_r = TRUE;
 	else if (flags[x] == 'g')
+	{
 		f->g = TRUE;
+		f->l = TRUE;
+	}
 	else if (flags[x] == 'u')
 		f->u = TRUE;
 	else if (flags[x] == 'f')

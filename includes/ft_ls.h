@@ -122,8 +122,8 @@ typedef struct		s_main
 	char			*pwd;
 }					t_main;
 
-void				ft_folder_color_r(char *ptr);
-void				ft_exec_color_r(char *ptr);
+void				ft_folder_color_r(char *ptr, t_flags flags, t_files *tmp);
+void				ft_exec_color_r(char *ptr, t_flags flags, t_files *tmp);
 void				ft_symlinkcolor(t_files *file, t_flags flags);
 void				ft_init_flags(t_flags *f);
 void				ft_which_flags(char *ops, t_flags *f);
